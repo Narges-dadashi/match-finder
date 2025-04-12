@@ -1,0 +1,218 @@
+<!-- <section>
+    <div class="create">
+        <form [formGroup]="registerFg">
+            <label>Email</label>
+            <input [formControl]="EmailCtrl" type="email">
+            <br>
+            <label>userName</label>
+            <input [formControl]="UserNameCtrl" type="text">
+            <br>
+            <label>Age</label>
+            <input [formControl]="AgeCtrl" type="number">
+            <br>
+            <label>IsAlive</label>
+            <input [formControl]="IsAliveCtrl" type="checkbox">
+            <br>
+
+            <button (click)="create()" type="submit">Create Your Acount</button>
+        </form>
+    </div>
+    <div>
+        <p>
+            {{receivedUser?.email}}
+            {{receivedUser?.userName}}
+            {{receivedUser?.age}}
+            {{receivedUser?.isAlive}}
+        </p>
+
+        <p>{{errorMessage}}</p>
+    </div>
+    <div>
+        <button (click)="getAll()">Get All User</button>
+
+        @for (user of receivedUsers; track $index) {
+        <h2>
+            {{user.email}}
+            <br>
+            {{user.userName}}
+            <br>
+            {{user.age}}
+            <br>
+            {{user.isAlive}}
+        </h2>
+        }
+    </div>
+    <div>
+        <button (click)="getByUserName()">Get User</button>
+
+        <h2>
+            {{receivedUser?.email}}
+            <br>
+            {{receivedUser?.userName}}
+            <br>
+            {{receivedUser?.age}}
+            <br>
+            {{receivedUser?.isAlive}}
+        </h2>
+
+        <p>{{errorMessage}}</p>
+    </div>
+</section>
+<section>
+    <div class="update">
+        <form [formGroup]="registerFg">
+            <label>Email</label>
+            <input [formControl]="EmailCtrl" type="email">
+            <br>
+            <label>userName</label>
+            <input [formControl]="UserNameCtrl" type="text">
+            <br>
+            <label>Age</label>
+            <input [formControl]="AgeCtrl" type="number">
+            <br>
+            <label>IsAlive</label>
+            <input [formControl]="IsAliveCtrl" type="checkbox">
+            <br>
+
+            <button (click)="update()" type="submit">Update User</button>
+        </form>
+    </div>
+
+    <button (click)="delete()">Delete User</button>
+    <h2>{{errorMessage}}</h2>
+</section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <section>
+    <form>
+        <label>Email</label>
+        <input [formControl]="EmailCtrl" type="email">
+        <br>
+        <label>Name</label>
+        <input [formControl]="NameCtrl" type="text">
+        <br>
+        <label>Age</label>
+        <input [formControl]="AgeCtrl" type="number">
+        <br>
+        <label>Password</label>
+        <input [formControl]="PasswordCtrl" type="password">
+        <br>
+        <label>Confirm Password</label>
+        <input [formControl]="ConfirmPasswordCtrl" type="password">
+
+        <button (click)="registerUser()" type="submit">Register</button>
+        <button (click)="getAll()">Get All</button>
+    </form>
+
+    <div>
+        {{receivedUser?.email}}
+        {{receivedUser?.name}}
+        {{receivedUser?.age}}
+        {{receivedUser?.password}}
+        {{receivedUser?.confirmPassword}}
+
+        {{errorMessage}}
+    </div>
+
+    <div>
+        <button (click)="getAll()">Get All</button>
+
+        @for (user of receivedUsers; track $index) {
+        <h2>
+            {{user.email}}
+            <br>
+            {{user.name}}
+            <br>
+            {{user.age}}
+            <br>
+            {{user.password}}
+            <br>
+            {{user.confirmPassword}}
+        </h2>
+        }
+    </div>
+
+    <button (click)="getByUserName()">Get User</button>
+
+    <h1>
+        {{receivedUser?.email}}
+        <br>
+        {{receivedUser?.name}}
+        <br>
+        {{receivedUser?.age}}
+        <br>
+        {{receivedUser?.password}}
+        <br>
+        {{receivedUser?.confirmPassword}}
+    </h1>
+
+    <p>{{errorMessage}}</p>
+</section>
+<section>
+    <form [formGroup]="registerFg">
+        <label>Email</label>
+        <input [formControl]="EmailCtrl" type="email">
+        <br>
+        <label>UserName</label>
+        <input [formControl]="NameCtrl" type="text">
+        <br>
+        <label>Age</label>
+        <input [formControl]="AgeCtrl" type="number">
+        <br>
+        <label>Password</label>
+        <input [formControl]="PasswordCtrl" type="password">
+        <br>
+        <label>ConfirmPassword</label>
+        <input [formControl]="ConfirmPasswordCtrl" type="password">
+
+        <button (click)="update()" type="submit">Update Info</button>
+    </form>
+</section>
+
+<button (click)="delete()">Delete</button> -->
