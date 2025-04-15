@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppUser } from './models/app-user.model';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from './services/user.service';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { UserService } from './services/user.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  userService = inject(UserService);
+  userService = inject(AccountService);
 
 
 

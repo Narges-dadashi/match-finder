@@ -8,7 +8,7 @@ import { login } from '../models/login.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AccountService {
   http = inject(HttpClient);
 
   register(user: AppUser): Observable<LoggedIn> {
