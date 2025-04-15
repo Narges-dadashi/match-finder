@@ -1,13 +1,61 @@
-<button (click)="register()">Register</button>
-<button (click)="login()">Login</button>
+<section>
+    <form>
+        <label>Email</label>
+        <input [formControl]="EmailCtrl" type="email">
+        <br>
+        <label>UserName</label>
+        <input [formControl]="UserNameCtrl" type="text">
+        <br>
+        <label>Password</label>
+        <input [formControl]="PasswordCtrl" type="password">
+        <br>
+        <label>Confirm Password</label>
+        <input [formControl]="ConfirmPasswordCtrl" type="password">
+        <br>
+        <label>Age</label>
+        <input [formControl]="AgeCtrl" type="number">
+        <br>
+        <label>City</label>
+        <input [formControl]="CityCtrl" type="text">
+        <br>
+        <label>Country</label>
+        <input [formControl]="CountryCtrl" type="text">
+        <br>
+
+        <button (click)="register()">Register</button>
+        <button (click)="login()">Login</button>
+    </form>
+</section>
+
+
+
+
+<!-- <button (click)="register()">Register</button>
+<button (clic<form>
+        <label>Email</label>
+        <input [formControl]="EmailCtrl" type="email">
+        <br>
+        <label>Name</label>
+        <input [formControl]="NameCtrl" type="text">
+        <br>
+        <label>Age</label>
+        <input [formControl]="AgeCtrl" type="number">
+        <br>
+        <label>Password</label>
+        <input [formControl]="PasswordCtrl" type="password">
+        <br>
+        <label>Confirm Password</label>
+        <input [formControl]="ConfirmPasswordCtrl" type="password">
+
+        <button (click)="registerUser()" type="submit">Register</button>
+        <button (click)="getAll()">Get All</button>
+    </form>k)="login()">Login</button> -->
 
 
 
 
 
 
-
-987654321
 
 <!-- <section>
     <div class="create">
