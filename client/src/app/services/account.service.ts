@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoggedIn } from '../models/logged-in.model';
 import { AppUser } from '../models/app-user.model';
-import { login } from '../models/login.model';
+import { Login } from '../models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AccountService {
     return this.http.post<LoggedIn>('http://localhost:5000/api/user/create', user);
   }
 
-  login(userInput: login): Observable<LoggedIn> {
+  login(userInput: Login): Observable<LoggedIn> {
     return this.http.post<LoggedIn>('http://localhost:5000/api/user/login', userInput);
   }
 }
