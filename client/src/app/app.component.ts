@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// import { RouterOutlet } from '@angular/router';
 import { AppUser } from './models/app-user.model';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from './services/account.service';
@@ -9,9 +9,8 @@ import { Login } from './models/login.model';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,
-    FormsModule, ReactiveFormsModule
-  ],
+  imports: [
+    FormsModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
