@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppUser } from './models/app-user.model';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +15,7 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators 
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
-
-
-
-
-
-
-  
-
+  userService = inject(UserService);
 
 
 
@@ -36,81 +29,90 @@ export class AppComponent {
 
 
 
-//   fB = inject(FormBuilder);
-//   http = inject(HttpClient);
 
-//   receivedUser: AppUser | undefined;
-//   receivedUsers: AppUser[] | undefined;
-//   errorMessage: string = '';
 
-//   registerFg = this.fB.group({
-//     emailCtrl: ['', [Validators.required, Validators.email]],
-//     userNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-//     ageCtrl: ['', [Validators.required, Validators.min(18), Validators.max(80)]],
-//     isAliveCtrl: ['', [Validators.required]]
-//   });
 
-//   get EmailCtrl(): FormControl {
-//     return this.registerFg.get('emailCtrl') as FormControl;
-//   }
 
-//   get UserNameCtrl(): FormControl {
-//     return this.registerFg.get('userNameCtrl') as FormControl;
-//   }
 
-//   get AgeCtrl(): FormControl {
-//     return this.registerFg.get('ageCtrl') as FormControl;
-//   }
 
-//   get IsAliveCtrl(): FormControl {
-//     return this.registerFg.get('isAliveCtrl') as FormControl;
-//   }
 
-//   create(): void {
-//     let appUser: AppUser = {
-//       email: this.EmailCtrl.value,
-//       userName: this.UserNameCtrl.value,
-//       age: this.AgeCtrl.value,
-//       isAlive: this.IsAliveCtrl.value
-//     }
 
-//     this.http.post<AppUser>('http://localhost:5000/api/user/create', appUser).subscribe({
-//       next: (response: AppUser) => (this.receivedUser = response, console.log(response)),
-//       error: (err) => (this.errorMessage = err.error, console.log(err.error))
-//     });
-//   }
 
-//   getAll(): void {
-//     this.http.get<AppUser[]>('http://localhost:5000/api/user').subscribe({
-//       next: (response: AppUser[]) => (this.receivedUsers = response, console.log(response))
-//     });
-//   }
+  //   fB = inject(FormBuilder);
+  //   http = inject(HttpClient);
 
-//   getByUserName(): void {
-//     this.http.get<AppUser>('http://localhost:5000/api/user/get-by-username/aa1').subscribe({
-//       next: (response: AppUser) => (this.receivedUser = response, console.log(response)),
-//       error: (errMessage) => (this.errorMessage = errMessage.error, console.log(errMessage.error))
-//     });
-//   }
+  //   receivedUser: AppUser | undefined;
+  //   receivedUsers: AppUser[] | undefined;
+  //   errorMessage: string = '';
 
-//   update(): void {
-//     let appUser: AppUser = {
-//       email: this.EmailCtrl.value,
-//       userName: this.UserNameCtrl.value,
-//       age: this.AgeCtrl.value,
-//       isAlive: this.IsAliveCtrl.value
-//     }
+  //   registerFg = this.fB.group({
+  //     emailCtrl: ['', [Validators.required, Validators.email]],
+  //     userNameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+  //     ageCtrl: ['', [Validators.required, Validators.min(18), Validators.max(80)]],
+  //     isAliveCtrl: ['', [Validators.required]]
+  //   });
 
-//     this.http.put(
-//       'http://localhost:5000/api/user/update/67ac637c721f96173a90a39a', appUser).subscribe();
-//   }
+  //   get EmailCtrl(): FormControl {
+  //     return this.registerFg.get('emailCtrl') as FormControl;
+  //   }
 
-//   delete(): void {
-//     this.http.delete<AppUser>('http://localhost:5000/api/user/delete/67ac637c721f96173a90a39a')
-//       .subscribe({
-//         error: (err) => (this.errorMessage = err.error, console.log(err.error))
-//       });
-//   }
+  //   get UserNameCtrl(): FormControl {
+  //     return this.registerFg.get('userNameCtrl') as FormControl;
+  //   }
+
+  //   get AgeCtrl(): FormControl {
+  //     return this.registerFg.get('ageCtrl') as FormControl;
+  //   }
+
+  //   get IsAliveCtrl(): FormControl {
+  //     return this.registerFg.get('isAliveCtrl') as FormControl;
+  //   }
+
+  //   create(): void {
+  //     let appUser: AppUser = {
+  //       email: this.EmailCtrl.value,
+  //       userName: this.UserNameCtrl.value,
+  //       age: this.AgeCtrl.value,
+  //       isAlive: this.IsAliveCtrl.value
+  //     }
+
+  //     this.http.post<AppUser>('http://localhost:5000/api/user/create', appUser).subscribe({
+  //       next: (response: AppUser) => (this.receivedUser = response, console.log(response)),
+  //       error: (err) => (this.errorMessage = err.error, console.log(err.error))
+  //     });
+  //   }
+
+  //   getAll(): void {
+  //     this.http.get<AppUser[]>('http://localhost:5000/api/user').subscribe({
+  //       next: (response: AppUser[]) => (this.receivedUsers = response, console.log(response))
+  //     });
+  //   }
+
+  //   getByUserName(): void {
+  //     this.http.get<AppUser>('http://localhost:5000/api/user/get-by-username/aa1').subscribe({
+  //       next: (response: AppUser) => (this.receivedUser = response, console.log(response)),
+  //       error: (errMessage) => (this.errorMessage = errMessage.error, console.log(errMessage.error))
+  //     });
+  //   }
+
+  //   update(): void {
+  //     let appUser: AppUser = {
+  //       email: this.EmailCtrl.value,
+  //       userName: this.UserNameCtrl.value,
+  //       age: this.AgeCtrl.value,
+  //       isAlive: this.IsAliveCtrl.value
+  //     }
+
+  //     this.http.put(
+  //       'http://localhost:5000/api/user/update/67ac637c721f96173a90a39a', appUser).subscribe();
+  //   }
+
+  //   delete(): void {
+  //     this.http.delete<AppUser>('http://localhost:5000/api/user/delete/67ac637c721f96173a90a39a')
+  //       .subscribe({
+  //         error: (err) => (this.errorMessage = err.error, console.log(err.error))
+  //       });
+  //   }
 }
 
 // fB = inject(FormBuilder);
