@@ -1,1 +1,31 @@
-<p>register works!</p>
+<section>
+    <div>
+        <form>
+            <label>Email</label>
+            <input type="email" [formControl]="EmailCtrl">
+
+            <label>UserName</label>
+            <input type="text" [formControl]="UserNameCtrl">
+
+            <label>Password</label>
+            <input type="password" [formControl]="PasswordCtrl">
+
+            <label>Confirm Password</label>
+            <input type="password" [formControl]="ConfirmPasswordCtrl">
+
+            <label>Age</label>
+            <input type="number" [formControl]="AgeCtrl">
+
+            <label>City</label>
+            <input type="text" [formControl]="CityCtrl">
+
+            <label>Country</label>
+            <input type="text" [formControl]="CountryCtrl">
+
+            <button (click)="register()">Register</button>
+        </form>
+    </div>
+</section>
+
+
+<!-- <p>register works!</p> -->
