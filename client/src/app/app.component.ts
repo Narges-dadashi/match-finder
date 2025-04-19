@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { AccountService } from './services/account.service';
-import { AppUser } from './models/app-user.model';
-import { Login } from './models/login.model';
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { FooterComponent } from "./components/footer/footer.component";
 
 @Component({
   selector: 'app-root',
@@ -11,22 +11,15 @@ import { Login } from './models/login.model';
   imports: [
     RouterOutlet,
     RouterModule, RouterLink,
-    FormsModule, ReactiveFormsModule],
+    FormsModule, ReactiveFormsModule,
+    NavbarComponent,
+    FooterComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   accountService = inject(AccountService);
-
-
-
-
-
-
-
-
-
-
 
 
 

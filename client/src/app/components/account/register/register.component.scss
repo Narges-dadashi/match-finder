@@ -1,0 +1,26 @@
+section {
+    background: pink;
+    display: flex;
+    justify-content: center;
+
+    .item-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        gap: 0.5rem;
+
+        form {
+            background: rgb(105, 174, 235);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 4px solid black;
+            border-radius: 12px;
+
+            button {
+                margin: 8px;
+            }
+        }
+    }
+}
