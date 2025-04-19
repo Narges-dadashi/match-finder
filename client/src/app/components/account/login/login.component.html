@@ -2,12 +2,12 @@
     <div>
         <form>
             <label>Email</label>
-            <input type="email">
+            <input type="email" [formControl]="EmailCtrl">
 
             <label>Password</label>
-            <input type="password">
+            <input type="password" [formControl]="PasswordCtrl">
 
-            <button>Login</button>
+            <button (click)="login()">Login</button>
         </form>
     </div>
 </section>

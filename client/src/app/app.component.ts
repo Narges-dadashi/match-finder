@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AppUser } from './models/app-user.model';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { AccountService } from './services/account.service';
+import { AppUser } from './models/app-user.model';
 import { Login } from './models/login.model';
 
 @Component({
@@ -11,77 +10,79 @@ import { Login } from './models/login.model';
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterModule, RouterLink,
     FormsModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   accountService = inject(AccountService);
-  fB = inject(FormBuilder);
 
-  registerFg = this.fB.group({
-    emailCtrl: '',
-    userNameCtrl: '',
-    passwordCtrl: '',
-    confirmPasswordCtrl: '',
-    ageCtrl: 0,
-    cityCtrl: '',
-    countryCtrl: ''
-  })
 
-  get EmailCtrl(): FormControl {
-    return this.registerFg.get('emailCtrl') as FormControl;
-  }
 
-  get UserNameCtrl(): FormControl {
-    return this.registerFg.get('userNameCtrl') as FormControl;
-  }
+  // registerFg = this.fB.group({
+  //   emailCtrl: '',
+  //   userNameCtrl: '',
+  //   passwordCtrl: '',
+  //   confirmPasswordCtrl: '',
+  //   ageCtrl: 0,
+  //   cityCtrl: '',
+  //   countryCtrl: ''
+  // })
 
-  get PasswordCtrl(): FormControl {
-    return this.registerFg.get('passwordCtrl') as FormControl;
-  }
+  // get EmailCtrl(): FormControl {
+  //   return this.registerFg.get('emailCtrl') as FormControl;
+  // }
 
-  get ConfirmPasswordCtrl(): FormControl {
-    return this.registerFg.get('confirmPasswordCtrl') as FormControl;
-  }
+  // get UserNameCtrl(): FormControl {
+  //   return this.registerFg.get('userNameCtrl') as FormControl;
+  // }
 
-  get AgeCtrl(): FormControl {
-    return this.registerFg.get('ageCtrl') as FormControl;
-  }
+  // get PasswordCtrl(): FormControl {
+  //   return this.registerFg.get('passwordCtrl') as FormControl;
+  // }
 
-  get CityCtrl(): FormControl {
-    return this.registerFg.get('cityCtrl') as FormControl;
-  }
+  // get ConfirmPasswordCtrl(): FormControl {
+  //   return this.registerFg.get('confirmPasswordCtrl') as FormControl;
+  // }
 
-  get CountryCtrl(): FormControl {
-    return this.registerFg.get('countryCtrl') as FormControl;
-  }
+  // get AgeCtrl(): FormControl {
+  //   return this.registerFg.get('ageCtrl') as FormControl;
+  // }
 
-  register(): void {
-    let user: AppUser = {
-      email: this.EmailCtrl.value,
-      userName: this.UserNameCtrl.value,
-      password: this.PasswordCtrl.value,
-      confirmPassword: this.ConfirmPasswordCtrl.value,
-      age: this.AgeCtrl.value,
-      city: this.CityCtrl.value,
-      country: this.CountryCtrl.value
-    }
+  // get CityCtrl(): FormControl {
+  //   return this.registerFg.get('cityCtrl') as FormControl;
+  // }
 
-    this.accountService.register(user).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err.error)
-    });
-  }
+  // get CountryCtrl(): FormControl {
+  //   return this.registerFg.get('countryCtrl') as FormControl;
+  // }
 
-  login(): void {
-    let userInput: Login = {
-      email: 'a1@agmail.com',
-      password: '12345678'
-    }
+  // register(): void {
+  //   let user: AppUser = {
+  //     email: this.EmailCtrl.value,
+  //     userName: this.UserNameCtrl.value,
+  //     password: this.PasswordCtrl.value,
+  //     confirmPassword: this.ConfirmPasswordCtrl.value,
+  //     age: this.AgeCtrl.value,
+  //     city: this.CityCtrl.value,
+  //     country: this.CountryCtrl.value
+  //   }
 
-    this.accountService.login(userInput).subscribe();
-  }
+  //   this.accountService.register(user).subscribe({
+  //     next: (res) => console.log(res),
+  //     error: (err) => console.log(err.error)
+  //   });
+  // }
+
+  // login(): void {
+  //   let userInput: Login = {
+  //     email: 'a1@agmail.com',
+  //     password: '12345678'
+  //   }
+
+  //   this.accountService.login(userInput).subscribe();
+  // }
 
 
 
