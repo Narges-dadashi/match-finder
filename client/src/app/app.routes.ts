@@ -5,6 +5,7 @@ import { LoginComponent } from './components/account/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MemberComponent } from './components/member/member.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'account/login', component: LoginComponent },
     { path: 'footer', component: FooterComponent },
     { path: 'navbar', component: NavbarComponent },
+    { path: 'members', component: MemberComponent },
     { path: '**', component: NotFoundComponent }
 ];
