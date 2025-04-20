@@ -4,20 +4,24 @@ import { Observable } from 'rxjs';
 import { LoggedIn } from '../models/logged-in.model';
 import { AppUser } from '../models/app-user.model';
 import { Login } from '../models/login.model';
+import { Member } from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   http = inject(HttpClient);
+  private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
 
   register(user: AppUser): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>('http://localhost:5000/api/user/create', user);
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'user/create', user);
   }
 
   login(userInput: Login): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>('http://localhost:5000/api/user/login', userInput);
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'user/login', userInput);
   }
 
-  // getAllMember(): Observable<>
+  getAllMember(): Observable<Member[]> {
+    return this.http.get<Member[]>(this._baseApiUrl + 'user');
+  }
 }
