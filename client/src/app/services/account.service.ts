@@ -18,4 +18,6 @@ export class AccountService {
   login(userInput: Login): Observable<LoggedIn> {
     return this.http.post<LoggedIn>('http://localhost:5000/api/user/login', userInput);
   }
+
+  // getAllMember(): Observable<>
 }
