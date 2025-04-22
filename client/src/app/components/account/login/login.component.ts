@@ -3,11 +3,17 @@ import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Login } from '../../../models/login.model';
 import { RouterLink } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [
+    RouterLink,
+    FormsModule, ReactiveFormsModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true
