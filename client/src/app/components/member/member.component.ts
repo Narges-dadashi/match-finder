@@ -4,12 +4,13 @@ import { AccountService } from '../../services/account.service';
 import { Member } from '../../models/member.model';
 
 @Component({
-    selector: 'app-member',
-    imports: [
-        RouterLink
-    ],
-    templateUrl: './member.component.html',
-    styleUrl: './member.component.scss'
+  selector: 'app-member',
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './member.component.html',
+  styleUrl: './member.component.scss',
+  standalone: true
 })
 export class MemberComponent {
   accountService = inject(AccountService);

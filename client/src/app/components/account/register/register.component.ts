@@ -5,13 +5,15 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators 
 import { AppUser } from '../../../models/app-user.model';
 
 @Component({
-    selector: 'app-register',
-    imports: [
-        RouterLink,
-        FormsModule, ReactiveFormsModule
-    ],
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.scss'
+  selector: 'app-register',
+  imports: [
+    RouterLink,
+    FormsModule, ReactiveFormsModule
+  ],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
+  standalone: true
+
 })
 export class RegisterComponent {
   accountService = inject(AccountService);

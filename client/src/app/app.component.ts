@@ -6,16 +6,17 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FooterComponent } from "./components/footer/footer.component";
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        RouterOutlet,
-        RouterModule, RouterLink,
-        FormsModule, ReactiveFormsModule,
-        NavbarComponent,
-        FooterComponent
-    ],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss'
+  selector: 'app-root',
+  imports: [
+    RouterOutlet,
+    RouterModule, RouterLink,
+    FormsModule, ReactiveFormsModule,
+    NavbarComponent,
+    FooterComponent
+  ],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  standalone: true
 })
 export class AppComponent {
   accountService = inject(AccountService);

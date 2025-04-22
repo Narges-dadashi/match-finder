@@ -3,16 +3,14 @@ import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Login } from '../../../models/login.model';
 import { RouterLink } from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-login',
-    // imports: [
-    //     // RouterLink,
-    //     // FormsModule, ReactiveFormsModule
-    // ],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'app-login',
+  imports: [],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
+  standalone: true
 })
 export class LoginComponent {
   accountService = inject(AccountService);
