@@ -3,17 +3,20 @@ import { RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUser } from '../../../models/app-user.model';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [
     RouterLink,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
-  standalone: true
-
 })
 export class RegisterComponent {
   accountService = inject(AccountService);
