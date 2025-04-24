@@ -6,10 +6,11 @@ import { RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     RouterLink,
     FormsModule, ReactiveFormsModule,
@@ -17,8 +18,7 @@ import {MatCardModule} from '@angular/material/card';
     MatFormFieldModule, MatInputModule, MatButtonModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  standalone: true
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   accountService = inject(AccountService);

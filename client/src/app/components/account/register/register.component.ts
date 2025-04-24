@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule, MatInputModule, MatButtonModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   accountService = inject(AccountService);
