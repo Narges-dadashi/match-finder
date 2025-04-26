@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+// import { RouterLink } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { Member } from '../../models/member.model';
 
@@ -7,7 +7,7 @@ import { Member } from '../../models/member.model';
   selector: 'app-member',
   standalone: true,
   imports: [
-    RouterLink
+    // RouterLink
   ],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss'
