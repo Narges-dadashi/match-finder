@@ -1,8 +1,9 @@
-<div>
-    @for (member of members; track $index) {
-    <p>{{member.userName}}</p>
-    <p>{{member.age}}</p>
-    }
+<div class="container">
+    <h3>Find Your Beloved One!</h3>
+    <div class="members-container">
+        @for (member of members; track $index) {
+        <p>{{member.userName}}</p>
+        <p>{{member.age}}</p>
+        }
+    </div>
 </div>
-
-<!-- <p>member works!</p> -->
