@@ -1,8 +1,6 @@
-namespace api.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RegisterController : ControllerBase
+namespace api.Controllers;
+
+    public class RegisterController : BaseApiController
     {
         #region Db and Token Settings
         private readonly IMongoCollection<RegisterUser> _collection;
@@ -31,4 +29,3 @@ namespace api.Controllers
             return user;
         }
     }
-}
