@@ -13,3 +13,4 @@ global using System.Threading.Tasks;
 global using api.DTOs;
 global using api.Interfaces;
 global using api.Repositories;
+global using api.Controllers.Helpers;
