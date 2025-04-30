@@ -1,106 +1,40 @@
-// namespace api.Controllers
-// {
-//     [Route("api/[controller]")]
-//     [ApiController]
-//     public class AccountController : ControllerBase
-//     {
-//         #region Db and Token Settings
-//         private readonly IMongoCollection<AppUser> _collection;
+namespace api.Controllers;
 
-//         // constructor - dependency injections
-//         public AccountController(IMongoClient client, IMongoDbSettings dbSettings)
-//         {
-//             var dbName = client.GetDatabase(dbSettings.DatabaseName);
-//             _collection = dbName.GetCollection<AppUser>("users");
-//         }
-//         #endregion
+public class AccountController(IAccountRepository accountRepository) : BaseApiController
+{
+    [HttpPost("create")]
+    public async Task<ActionResult<LoggedInDto>> Create(AppUser userInput, CancellationToken cancellationToken)
+    {
+        if (userInput.Password != userInput.ConfirmPassword)
+            return BadRequest("Your passwords do not match!");
 
-//         // [HttpPost("createUser")]
-//         // public AppUser Create()
-//         // {
-//         //     AppUser appUser = new AppUser(
-//         //         Id: null,
-//         //         Email: "Narges@gmail.com",
-//         //         Name: "Narges",
-//         //         // Age: 18,
-//         //         Password: "123456",
-//         //         ConfirmPassword: "123456"
-//         //     );
+        LoggedInDto? loggedInDto = await accountRepository.CreateAsync(userInput, cancellationToken);
 
-//         //     _collection.InsertOne(appUser);
+        if (loggedInDto is null)
+            return BadRequest("This email is already taken.");
 
-//         //     return appUser;
-//         // }
+        return Ok(loggedInDto);
+    }
 
-//         // [HttpPost("registerUser")]
-//         // public AppUser Register(string email, string name, string password, string ConfirmPassword)
-//         // {
-//         //     AppUser appUser = new AppUser(
-//         //         Id: null,
-//         //         Email: email,
-//         //         Name: name,
-//         //         // Age: age,
-//         //         Password: password,
-//         //         ConfirmPassword: ConfirmPassword
-//         //     );
+    [HttpPost("login")]
+    public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
+    {
+        LoggedInDto? loggedInDto = await accountRepository.LoginAsync(userInput, cancellationToken);
 
-//         //     _collection.InsertOne(appUser);
+        if (loggedInDto is null)
+            return BadRequest("Email or Password is wrong");
 
-//         //     return appUser;
-//         // }
+        return loggedInDto;
+    }
 
-//         // [HttpPost("loginUser")]
-//         // public AppUser Login(AppUser userInput)
-//         // {
-//         //     AppUser user = new AppUser(
-//         //         Id: null,
-//         //         Email: userInput.Email,
-//         //         Name: userInput.Name,
-//         //         // Age: userInput.Age,
-//         //         Password: userInput.Password,
-//         //         ConfirmPassword: userInput.ConfirmPassword
-//         //     );
+    [HttpDelete("delete/{userId}")]
+    public async Task<ActionResult<DeleteResult>> DeleteById(string userId, CancellationToken cancellationToken)
+    {
+        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId, cancellationToken);
 
-//         //     _collection.InsertOne(user);
+        if (deleteResult is null)
+            return BadRequest("Operation failed");
 
-//         //     return user;
-//         // }
-
-//         [HttpPost("register")]
-//         public ActionResult<AppUser> CreateUser(AppUser userInput)
-//         {
-//             AppUser appUser = _collection.Find<AppUser>(doc => doc.Email == userInput.Email.Trim()).FirstOrDefault();
-
-//             if (appUser is null)
-//             {
-//                 // AppUser user = new AppUser(
-//                 // Id: null,
-//                 // Email: userInput.Email,
-//                 // Name: userInput.Name,
-//                 // Age: userInput.Age,
-//                 // Password: userInput.Password,
-//                 // ConfirmPassword: userInput.ConfirmPassword
-//                 // );
-
-//                 // _collection.InsertOne(user);
-
-//                 // return user;
-//             }
-
-//             return BadRequest("This email already exists.");
-//         }
-
-//         [HttpGet]
-//         public ActionResult<List<AppUser>> GetAll()
-//         {
-//             List<AppUser> appUsers = _collection.Find<AppUser>(new BsonDocument()).ToList();
-
-//             if (appUsers.Count == 0)
-//             {
-//                 return NoContent();
-//             }
-
-//             return appUsers;
-//         }
-//     }
-// }
+        return deleteResult;
+    }
+}
