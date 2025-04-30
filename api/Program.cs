@@ -20,6 +20,8 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 #endregion MongoDbSettings
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 
 #region Cors: baraye ta'eede Angular HttpClient requests
 builder.Services.AddCors(options =>

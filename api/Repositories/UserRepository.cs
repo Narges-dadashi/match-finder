@@ -13,16 +13,6 @@ public class UserRepository : IUserRepository
     }
     #endregion
 
-    public async Task<List<AppUser>?> GetAllAsync(CancellationToken cancellationToken)
-    {
-        List<AppUser> appUsers = await _collection.Find(new BsonDocument()).ToListAsync(cancellationToken);
-
-        if (appUsers.Count == 0)
-            return null;
-
-        return appUsers;
-    }
-
     public async Task<UpdateDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
