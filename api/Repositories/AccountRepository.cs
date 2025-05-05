@@ -13,7 +13,7 @@ public class AccountRepository : IAccountRepository
     }
     #endregion
 
-    public async Task<LoggedInDto?> CreateAsync(AppUser userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> RegisterAsync(AppUser userInput, CancellationToken cancellationToken)
     {
         AppUser user = await _collection.Find<AppUser>(doc =>
         doc.Email == userInput.Email).FirstOrDefaultAsync(cancellationToken);

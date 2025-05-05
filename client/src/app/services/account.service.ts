@@ -17,7 +17,7 @@ export class AccountService {
 
   register(user: AppUser): Observable<LoggedIn> {
     return this.http.post<LoggedIn>(
-      this._baseApiUrl + 'account/create', user);
+      this._baseApiUrl + 'account/register', user);
   }
 
   login(userInput: Login): Observable<LoggedIn> {
