@@ -6,6 +6,7 @@ import { AppUser } from '../models/app-user.model';
 import { Login } from '../models/login.model';
 import { Member } from '../models/member.model';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +15,60 @@ export class AccountService {
   http = inject(HttpClient);
   private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
   platformId = inject(PLATFORM_ID);
+  router = inject(Router);
 
   register(user: AppUser): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>(
-      this._baseApiUrl + 'account/register', user);
+    let userResponse$: Observable<LoggedIn> =
+      this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', user);
+
+    userResponse$.pipe(
+      map(res => {
+        this.setCurrentUser(res);
+
+        return res;
+      })
+    );
+
+    return userResponse$;
   }
 
   login(userInput: Login): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>(
-      this._baseApiUrl + 'account/login', userInput).pipe(
-        map(userResponse => {
-          this.setCurrentUser(userResponse);
+    let userResponse$: Observable<LoggedIn> =
+      this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
 
-          return userResponse;
-        })
-      )
+    userResponse$.pipe(
+      map(res => {
+        this.setCurrentUser(res);
+
+        return res;
+      })
+    );
+
+    return userResponse$;
   }
 
-  getAllMember(): Observable<Member[]> {
-    return this.http.get<Member[]>(this._baseApiUrl + 'member');
-  }
+  // register(user: AppUser): Observable<LoggedIn> {
+  //   return this.http.post<LoggedIn>(
+  //     this._baseApiUrl + 'account/register', user);
+  // }
 
-  setCurrentUser(loggedInUser: LoggedIn): void {
+  // login(userInput: Login): Observable<LoggedIn> {
+  //   return this.http.post<LoggedIn>(
+  //     this._baseApiUrl + 'account/login', userInput).pipe(
+  //       map(userResponse => {
+  //         this.setCurrentUser(userResponse);
+
+  //         return userResponse;
+  //       })
+  //     )
+  // }
+
+  setCurrentUser(loggedIn: LoggedIn): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }
   }
 }
+// getAllMember(): Observable<Member[]> {
+//   return this.http.get<Member[]>(this._baseApiUrl + 'member');
+// }
