@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AccountService } from '../../services/account.service';
+import { ExampleService } from '../../services/example.service';
 
 @Component({
     selector: 'app-navbar',
@@ -17,6 +18,7 @@ import { AccountService } from '../../services/account.service';
 })
 export class NavbarComponent {
     accountService = inject(AccountService);
+    exampleService = inject(ExampleService);
 
     logout(): void {
         this.accountService.logout();
