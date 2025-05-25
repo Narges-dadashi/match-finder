@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 import { LoggedIn } from '../models/logged-in.model';
 import { AppUser } from '../models/app-user.model';
 import { Login } from '../models/login.model';
-import { Member } from '../models/member.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -67,5 +66,13 @@ export class AccountService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }
+  }
+
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
+
+    this.router.navigateByUrl('account/login');
   }
 }
