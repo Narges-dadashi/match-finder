@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { LoggedIn } from '../models/logged-in.model';
 import { AppUser } from '../models/app-user.model';
@@ -15,60 +15,48 @@ export class AccountService {
   private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
+  loggedInUserSig = signal<LoggedIn | null>(null);
 
-  register(user: AppUser): Observable<LoggedIn> {
-    let userResponse$: Observable<LoggedIn> =
-      this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', user);
-
-    userResponse$.pipe(
+  register(userInput: AppUser): Observable<LoggedIn | null> {
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', userInput).pipe(
       map(res => {
-        this.setCurrentUser(res);
+        if (res) {
+          this.setCurrentUser(res);
 
-        return res;
+          return res;
+        }
+
+        return null;
       })
     );
-
-    return userResponse$;
   }
 
-  login(userInput: Login): Observable<LoggedIn> {
-    let userResponse$: Observable<LoggedIn> =
-      this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
-
-    userResponse$.pipe(
+  login(userInput: Login): Observable<LoggedIn | null> {
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput).pipe(
       map(res => {
-        this.setCurrentUser(res);
+        if (res) {
+          this.setCurrentUser(res);
 
-        return res;
+          return res;
+        }
+
+        return null;
       })
     );
-
-    return userResponse$;
   }
-
-  // register(user: AppUser): Observable<LoggedIn> {
-  //   return this.http.post<LoggedIn>(
-  //     this._baseApiUrl + 'account/register', user);
-  // }
-
-  // login(userInput: Login): Observable<LoggedIn> {
-  //   return this.http.post<LoggedIn>(
-  //     this._baseApiUrl + 'account/login', userInput).pipe(
-  //       map(userResponse => {
-  //         this.setCurrentUser(userResponse);
-
-  //         return userResponse;
-  //       })
-  //     )
-  // }
 
   setCurrentUser(loggedIn: LoggedIn): void {
+    this.loggedInUserSig.set(loggedIn);
+    console.log(this.loggedInUserSig);
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }
   }
 
   logout(): void {
+    this.loggedInUserSig.set(null);
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
