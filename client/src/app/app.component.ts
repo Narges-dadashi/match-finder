@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { AccountService } from './services/account.service';
@@ -9,7 +9,7 @@ import { FooterComponent } from "./components/footer/footer.component";
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    RouterModule, 
+    RouterModule,
     FormsModule, ReactiveFormsModule,
     NavbarComponent,
     FooterComponent
@@ -18,8 +18,18 @@ import { FooterComponent } from "./components/footer/footer.component";
   styleUrl: './app.component.scss',
   standalone: true
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   accountService = inject(AccountService);
+
+  ngOnInit(): void {
+    let loggedInUser: string | null = localStorage.getItem('loggedInUser');
+    console.log(loggedInUser);
+
+    if (loggedInUser != null)
+      this.accountService.setCurrentUser(JSON.parse(loggedInUser));
+  }
+
+
 
 
 
