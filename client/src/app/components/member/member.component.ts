@@ -3,6 +3,7 @@ import { AccountService } from '../../services/account.service';
 import { Member } from '../../models/member.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MemberService } from '../../services/member.service';
 
 @Component({
   selector: 'app-member',
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './member.component.scss'
 })
 export class MemberComponent implements OnInit {
+  memberService = inject(MemberService);
   accountService = inject(AccountService);
   members: Member[] | undefined;
 
@@ -22,7 +24,7 @@ export class MemberComponent implements OnInit {
   }
 
   getAll(): void {
-    this.accountService.getAllMember().subscribe({
+    this.memberService.getAllMembers().subscribe({
       next: (res) => {
         this.members = res;
       }
