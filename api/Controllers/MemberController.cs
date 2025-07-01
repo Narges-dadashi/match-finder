@@ -14,17 +14,29 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
 
         foreach (AppUser user in appUsers)
         {
-            MemberDto memberDto = new(
-                Email: user.Email,
-                UserName: user.UserName,
-                Age: user.Age,
-                City: user.City,
-                Country: user.Country
-            );
+            // MemberDto memberDto = new(
+            //     Email: user.Email,
+            //     UserName: user.UserName,
+            //     Age: user.Age,
+            //     City: user.City,
+            //     Country: user.Country
+            // );
+
+            MemberDto memberDto = Mappers.CovertAppUserToMemberDto(user);
 
             memberDtos.Add(memberDto);
         }
 
         return memberDtos;
+    }
+
+    public async Task<ActionResult<MemberDto?>> GetByUserName(string userName, CancellationToken cancellationToken)
+    {
+        MemberDto? memberDto = await memberRepository.GetByUserNameAsync(userName, cancellationToken);
+
+        if (memberDto is null)
+            return BadRequest("User not found");
+
+        return memberDto;
     }
 }
