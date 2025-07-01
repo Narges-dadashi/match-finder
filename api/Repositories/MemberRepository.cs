@@ -23,7 +23,7 @@ public class MemberRepository : IMemberRepository
         return appUsers;
     }
 
-    public async Task<MemberDto?> GetByUserNameAsync(string UserName, CancellationToken cancellationToken)
+    public async Task<MemberDto?> GetByUserNameAsync(string userName, CancellationToken cancellationToken)
     {
         AppUser? appUser = await _collection.Find
             (doc => doc.UserName == UserName).FirstOrDefaultAsync(cancellationToken);
