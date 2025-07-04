@@ -22,7 +22,7 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
             //     Country: user.Country
             // );
 
-            MemberDto memberDto = Mappers.CovertAppUserToMemberDto(user);
+            MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(user);
 
             memberDtos.Add(memberDto);
         }

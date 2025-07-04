@@ -1,6 +1,6 @@
 namespace api.Extensions;
 
-public class RepositoryServiceExtensions
+public static class RepositoryServiceExtensions
 {
     public static IServiceCollection AddRepositoryService(this IServiceCollection services)
     {
