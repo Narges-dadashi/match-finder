@@ -31,6 +31,25 @@ public static class ApplicationServiceExtensions
             });
         #endregion Cors
 
+        #region Authentication & Authorization
+        string tokenValue = configuration["TokenKey"]!;
+
+        if (!string.IsNullOrEmpty(tokenValue))
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+        }
+        #endregion Authentication & Authorization
+
         return services;
     }
 }
