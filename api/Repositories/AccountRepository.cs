@@ -4,12 +4,15 @@ public class AccountRepository : IAccountRepository
 {
     #region Db and Token Settings
     private readonly IMongoCollection<AppUser> _collection;
+    private readonly ITokenService _tokenService;
 
     // constructor - dependency injections
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
+
+        _tokenService = tokenService;
     }
     #endregion
 
@@ -23,7 +26,9 @@ public class AccountRepository : IAccountRepository
 
         await _collection.InsertOneAsync(userInput, null, cancellationToken);
 
-        return Mappers.ConvertAppUserToLoggedInDto(userInput);
+        string? token = _tokenService.CreateToken(userInput);
+
+        return Mappers.ConvertAppUserToLoggedInDto(userInput, token);
     }
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
@@ -34,7 +39,9 @@ public class AccountRepository : IAccountRepository
         if (user is null)
             return null;
 
-        return Mappers.ConvertAppUserToLoggedInDto(user);
+        string? token = _tokenService.CreateToken(user);
+
+        return Mappers.ConvertAppUserToLoggedInDto(user, token);
     }
 
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)
