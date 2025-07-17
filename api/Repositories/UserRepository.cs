@@ -4,16 +4,19 @@ public class UserRepository : IUserRepository
 {
     #region Db and Token Settings
     private readonly IMongoCollection<AppUser> _collection;
+    private readonly ITokenService _tokenService;
 
     // constructor - dependency injections
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
+
+        _tokenService = tokenService;
     }
     #endregion
 
-    public async Task<UpdateDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
         .Set(user => user.Email, userInput.Email.Trim().ToLower());
@@ -27,10 +30,8 @@ public class UserRepository : IUserRepository
         if (appUser is null)
             return null;
 
-        UpdateDto updateDto = new(
-            Email: appUser.Email
-        );
+        string? token = _tokenService.CreateToken(appUser);
 
-        return updateDto;
+        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 }
