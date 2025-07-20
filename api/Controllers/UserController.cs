@@ -2,6 +2,7 @@ namespace api.Controllers;
 
     public class UserController(IUserRepository userRepository) : BaseApiController
     {
+        [Authorize]
         [HttpPut("update/{userId}")]
         public async Task<ActionResult<UpdateDto>> UpdateById(string userId, AppUser userInput, CancellationToken cancellationToken)
         {
