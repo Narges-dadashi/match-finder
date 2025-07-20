@@ -1,5 +1,6 @@
 namespace api.Controllers;
 
+[Authorize]
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
