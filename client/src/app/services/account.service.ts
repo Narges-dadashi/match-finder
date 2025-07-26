@@ -23,6 +23,8 @@ export class AccountService {
         if (res) {
           this.setCurrentUser(res);
 
+          this.router.navigateByUrl('/members');
+
           return res;
         }
 
@@ -36,6 +38,8 @@ export class AccountService {
       map(res => {
         if (res) {
           this.setCurrentUser(res);
+
+          this.router.navigateByUrl('/members');
 
           return res;
         }
