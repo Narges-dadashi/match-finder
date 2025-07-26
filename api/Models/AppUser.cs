@@ -7,7 +7,7 @@ public record AppUser(
     string UserName,
     string Password,
     string ConfirmPassword,
-    int Age,
+    DateOnly DateOfBirth,
     string City,
     string Country
     );
