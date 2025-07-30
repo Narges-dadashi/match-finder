@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,9 +18,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
+
+  minDate = new Date();
+  maxDate = new Date();
+
+  ngOnInit(): void {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 99, 0, 1);
+    this.maxDate = new Date(currentYear - 18, 0, 1);
+  }
 
   registerFg = this.fB.group({
     emailCtrl: ['', [Validators.required, Validators.email]],
