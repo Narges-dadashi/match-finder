@@ -6,6 +6,7 @@ import { AppUser } from '../../../models/app-user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     RouterLink,
     FormsModule, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule
+    MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
     userNameCtrl: '',
     passwordCtrl: '',
     confirmPasswordCtrl: '',
-    ageCtrl: 0,
+    dateOfBirth: ['', [Validators.required]],
     cityCtrl: '',
     countryCtrl: ''
   })
@@ -57,8 +58,8 @@ export class RegisterComponent implements OnInit {
     return this.registerFg.get('confirmPasswordCtrl') as FormControl;
   }
 
-  get AgeCtrl(): FormControl {
-    return this.registerFg.get('ageCtrl') as FormControl;
+  get DateOfBirthCtrl(): FormControl {
+    return this.registerFg.get('dateOfBirthCtrl') as FormControl;
   }
 
   get CityCtrl(): FormControl {
@@ -70,19 +71,30 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    let user: AppUser = {
-      email: this.EmailCtrl.value,
-      userName: this.UserNameCtrl.value,
-      password: this.PasswordCtrl.value,
-      confirmPassword: this.ConfirmPasswordCtrl.value,
-      age: this.AgeCtrl.value,
-      city: this.CityCtrl.value,
-      country: this.CountryCtrl.value
-    }
+    const dob: string | undefined = this.getDateOnly(this.DateOfBirthCtrl.value);
 
-    this.accountService.register(user).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err.error)
-    });
+    if (this.PasswordCtrl.value === this.ConfirmPasswordCtrl.value) {
+      let user: AppUser = {
+        email: this.EmailCtrl.value,
+        userName: this.UserNameCtrl.value,
+        password: this.PasswordCtrl.value,
+        confirmPassword: this.ConfirmPasswordCtrl.value,
+        dateOfBirth: dob,
+        city: this.CityCtrl.value,
+        country: this.CountryCtrl.value
+      }
+
+      this.accountService.register(user).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err.error)
+      });
+    }
+  }
+
+  getDateOnly(dob: string | null): string | undefined {
+    if (!dob) return undefined;
+
+    let theDob: Date = new Date(dob);
+    return new Date(theDob.setMinutes(theDob.getMinutes() - theDob.getTimezoneOffset())).toISOString().slice(0, 10);
   }
 }
