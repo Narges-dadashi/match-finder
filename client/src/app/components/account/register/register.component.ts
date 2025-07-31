@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
     userNameCtrl: '',
     passwordCtrl: '',
     confirmPasswordCtrl: '',
-    dateOfBirth: ['', [Validators.required]],
+    dateOfBirthCtrl: ['', [Validators.required]],
     cityCtrl: '',
     countryCtrl: ''
   })
