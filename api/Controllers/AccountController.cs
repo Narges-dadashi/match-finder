@@ -1,6 +1,7 @@
+using api.Extensions;
+
 namespace api.Controllers;
 
-[AllowAnonymous]
 public class AccountController(IAccountRepository accountRepository) : BaseApiController
 {
     [HttpPost("register")]
@@ -29,10 +30,15 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
     }
 
     [Authorize]
-    [HttpDelete("delete/{userId}")]
-    public async Task<ActionResult<DeleteResult>> DeleteById(string userId, CancellationToken cancellationToken)
+    [HttpDelete("delete")]
+    public async Task<ActionResult<DeleteResult>> DeleteById(CancellationToken cancellationToken)
     {
-        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId, cancellationToken);
+        var userId = User.GetUserId();
+
+        if (userId is null)
+            return Unauthorized("You are not logged. Please log in again");
+
+        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(cancellationToken);
 
         if (deleteResult is null)
             return BadRequest("Operation failed");

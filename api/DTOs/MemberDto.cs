@@ -5,5 +5,6 @@ public record MemberDto(
     string UserName,
     int Age,
     string City,
-    string Country
+    string Country,
+    string Token
 );

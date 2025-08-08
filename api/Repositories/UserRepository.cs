@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
     }
     #endregion
 
-    public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<MemberDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
         .Set(user => user.Email, userInput.Email.Trim().ToLower());
@@ -32,6 +32,6 @@ public class UserRepository : IUserRepository
 
         string? token = _tokenService.CreateToken(appUser);
 
-        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        return Mappers.ConvertAppUserToMemberDto(appUser, token);
     }
 }

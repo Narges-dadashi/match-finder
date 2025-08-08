@@ -1,19 +1,26 @@
+using api.Extensions;
+
 namespace api.Controllers;
 
-    public class UserController(IUserRepository userRepository) : BaseApiController
+public class UserController(IUserRepository userRepository) : BaseApiController
+{
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<ActionResult<MemberDto>> UpdateById(AppUser userInput, CancellationToken cancellationToken)
     {
-        [Authorize]
-        [HttpPut("update/{userId}")]
-        public async Task<ActionResult<UpdateDto>> UpdateById(string userId, AppUser userInput, CancellationToken cancellationToken)
-        {
-            UpdateDto? updateDto = await userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
+        var userId = User.GetUserId();
 
-            if (updateDto is null)
-                return BadRequest("Operation failed.");
+        if (userId is null)
+            return Unauthorized("You are not logged, Please log in again.");
 
-            return updateDto;
-        }
+        MemberDto? updateDto = await userRepository.UpdateByIdAsync(userInput, cancellationToken);
+
+        if (updateDto is null)
+            return BadRequest("Operation failed.");
+
+        return updateDto;
     }
+}
 
 
 
