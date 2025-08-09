@@ -1,5 +1,3 @@
-using api.Extensions;
-
 namespace api.Controllers;
 
 public class UserController(IUserRepository userRepository) : BaseApiController
@@ -13,12 +11,12 @@ public class UserController(IUserRepository userRepository) : BaseApiController
         if (userId is null)
             return Unauthorized("You are not logged, Please log in again.");
 
-        MemberDto? updateDto = await userRepository.UpdateByIdAsync(userInput, cancellationToken);
+        MemberDto? memberDto = await userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);
 
-        if (updateDto is null)
+        if (memberDto is null)
             return BadRequest("Operation failed.");
 
-        return updateDto;
+        return memberDto;
     }
 }
 

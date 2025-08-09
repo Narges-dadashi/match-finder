@@ -1,5 +1,3 @@
-using api.Extensions;
-
 namespace api.Controllers;
 
 public class AccountController(IAccountRepository accountRepository) : BaseApiController

@@ -1,6 +1,3 @@
-using api.Extensions;
-using NuGet.Common;
-
 namespace api.DTOs;
 
 public static class Mappers
@@ -14,15 +11,14 @@ public static class Mappers
         );
     }
 
-    public static MemberDto ConvertAppUserToMemberDto(AppUser appUser, string tokenValue)
+    public static MemberDto ConvertAppUserToMemberDto(AppUser appUser)
     {
         return new(
             Email: appUser.Email,
             UserName: appUser.UserName,
             Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             City: appUser.City,
-            Country: appUser.Country,
-            Token: tokenValue
+            Country: appUser.Country
         );
     }
 }

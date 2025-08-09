@@ -30,5 +30,7 @@ public static class ApplicationServiceExtensions
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             });
         #endregion Cors
+
+        return services;
     }
 }

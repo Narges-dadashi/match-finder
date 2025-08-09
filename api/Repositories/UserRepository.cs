@@ -30,8 +30,6 @@ public class UserRepository : IUserRepository
         if (appUser is null)
             return null;
 
-        string? token = _tokenService.CreateToken(appUser);
-
-        return Mappers.ConvertAppUserToMemberDto(appUser, token);
+        return Mappers.ConvertAppUserToMemberDto(appUser);
     }
 }
