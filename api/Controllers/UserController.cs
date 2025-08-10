@@ -6,9 +6,9 @@ public class UserController(IUserRepository userRepository) : BaseApiController
     [HttpPut("update")]
     public async Task<ActionResult<MemberDto>> UpdateById(AppUser userInput, CancellationToken cancellationToken)
     {
-        var userId = User.GetUserId();
+        var memberId = User.GetUserId();
 
-        if (userId is null)
+        if (memberId is null)
             return Unauthorized("You are not logged, Please log in again.");
 
         MemberDto? memberDto = await userRepository.UpdateByIdAsync(userId, userInput, cancellationToken);

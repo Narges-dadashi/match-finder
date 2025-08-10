@@ -29,14 +29,14 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
 
     [Authorize]
     [HttpDelete("delete")]
-    public async Task<ActionResult<DeleteResult>> DeleteById(CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteResult>> DeleteById(string userId, CancellationToken cancellationToken)
     {
-        var userId = User.GetUserId();
+        var memberId = User.GetUserId();
 
-        if (userId is null)
+        if (memberId is null)
             return Unauthorized("You are not logged. Please log in again");
 
-        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(cancellationToken);
+        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId ,cancellationToken);
 
         if (deleteResult is null)
             return BadRequest("Operation failed");
