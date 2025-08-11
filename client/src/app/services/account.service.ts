@@ -6,13 +6,14 @@ import { AppUser } from '../models/app-user.model';
 import { Login } from '../models/login.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   http = inject(HttpClient);
-  private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
+  private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
   loggedInUserSig = signal<LoggedIn | null>(null);
