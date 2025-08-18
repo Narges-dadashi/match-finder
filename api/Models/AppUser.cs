@@ -1,6 +1,9 @@
+using System.Runtime.InteropServices;
+
 namespace api.Models;
 
 public record AppUser(
+    [Optional]
     [property: BsonId, BsonRepresentation(BsonType.ObjectId)]
     string? Id,
     [EmailAddress] string Email,
@@ -10,5 +13,6 @@ public record AppUser(
     [Range(typeof(DateOnly), "1900-01-01", "2050-01-01", ErrorMessage = "Date of birth must be between 1900 and 2050.")]
     DateOnly DateOfBirth,
     string City,
-    string Country
+    string Country,
+    List<Photo> Photos
     );
