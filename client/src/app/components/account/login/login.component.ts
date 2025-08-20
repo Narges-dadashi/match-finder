@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Login } from '../../../models/login.model';
@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +21,14 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
+  subscribedRegisterUser: Subscription | undefined;
+
+  ngOnDestroy(): void {
+    this.subscribedRegisterUser?.unsubscribe();
+  }
 
   loginFg = this.fB.group({
     emailCtrl: ['', [Validators.required, Validators.email]],
