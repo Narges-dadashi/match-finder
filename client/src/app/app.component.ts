@@ -21,15 +21,17 @@ import { FooterComponent } from "./components/footer/footer.component";
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
 
-  ngOnInit(): void {
-    let loggedInUser: string | null = localStorage.getItem('loggedInUser');
-    console.log(loggedInUser);
+  ngOnInit(): void { // initialize user on page refresh
+    let loggedInUserStr: string | null = localStorage.getItem('loggedInUser');
+    console.log(loggedInUserStr);
 
-    if (loggedInUser != null)
+    if (loggedInUserStr != null) {
       this.accountService.authorizeLoggedInUser();
 
-    this.accountService.setCurrentUser(JSON.parse(loggedInUser));
+      this.accountService.setCurrentUser(JSON.parse(loggedInUserStr))
+    }
   }
+}
 
 
 
@@ -116,7 +118,6 @@ export class AppComponent implements OnInit {
   //         error: (err) => (this.errorMessage = err.error, console.log(err.error))
   //       });
   //   }
-}
 
 // fB = inject(FormBuilder);
 // http = inject(HttpClient);
