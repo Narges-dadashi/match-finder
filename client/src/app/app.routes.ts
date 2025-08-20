@@ -10,6 +10,7 @@ import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 
 export const routes: Routes = [
+    { path: '', component: HomeComponent },
     {
         path: '',
         runGuardsAndResolvers: 'always',
@@ -27,8 +28,6 @@ export const routes: Routes = [
             { path: 'account/login', component: LoginComponent },
         ]
     },
-
-    { path: '', component: HomeComponent },
     { path: 'footer', component: FooterComponent },
     { path: 'navbar', component: NavbarComponent },
     { path: '**', component: NotFoundComponent }

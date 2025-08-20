@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
     console.log(loggedInUser);
 
     if (loggedInUser != null)
-      this.accountService.setCurrentUser(JSON.parse(loggedInUser));
+      this.accountService.authorizeLoggedInUser();
+
+    this.accountService.setCurrentUser(JSON.parse(loggedInUser));
   }
 
 
