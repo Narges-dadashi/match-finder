@@ -28,6 +28,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   minDate = new Date();
   maxDate = new Date();
 
+  passwordsNotMatch: boolean | undefined;
+
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 99, 0, 1);
@@ -94,6 +96,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         next: (res) => console.log(res),
         error: (err) => console.log(err.error)
       });
+    }
+    else {
+      this.passwordsNotMatch = true;
     }
   }
 
