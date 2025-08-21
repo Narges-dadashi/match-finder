@@ -36,7 +36,7 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
         if (memberId is null)
             return Unauthorized("You are not logged. Please log in again");
 
-        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId ,cancellationToken);
+        DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId, cancellationToken);
 
         if (deleteResult is null)
             return BadRequest("Operation failed");
@@ -48,12 +48,9 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
     [HttpGet]
     public async Task<ActionResult<LoggedInDto>> ReloadLoggedInUser(CancellationToken cancellationToken)
     {
-        // obtain token value
         string? token = null;
 
         bool isTokenValid = HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader);
-
-        // Console.WriteLine(authHeader);
 
         if (isTokenValid)
             token = authHeader.ToString().Split(' ').Last();
@@ -68,7 +65,6 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
         if (userId is null)
             return Unauthorized();
 
-        // get loggedInDto
         LoggedInDto? loggedInDto =
         await accountRepository.ReloadLoggedInUserAsync(userId, token, cancellationToken);
 
