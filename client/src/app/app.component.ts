@@ -1,10 +1,9 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet, RouterModule, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { AccountService } from './services/account.service';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +20,15 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
-  platformId = inject(PLATFORM_ID);
 
   ngOnInit(): void {
+    let loggedInUserStr: string | null = localStorage.getItem('loggedInUser');
+    console.log(loggedInUserStr);
 
-    if (isPlatformBrowser(this.platformId)) {
-      let loggedInUser: string | null = localStorage.getItem('loggedInUser');
-      console.log(loggedInUser);
+    if (loggedInUserStr != null) {
+      this.accountService.authorizeLoggedInUser();
 
-      if (loggedInUser != null)
-        this.accountService.setCurrentUser(JSON.parse(loggedInUser));
+      this.accountService.setCurrentUser(JSON.parse(loggedInUserStr))
     }
   }
 }
