@@ -4,14 +4,14 @@ namespace api.Controllers;
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
-    public async Task<ActionResult<List<MemberDto>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll(CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
 
         if (userId is null)
             return Unauthorized("You are not logged in. Please login again");
 
-        List<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);
+        IEnumerable<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);
 
         if (appUsers is null)
             return NoContent();

@@ -4,7 +4,7 @@ public class UserController(IUserRepository userRepository) : BaseApiController
 {
     [Authorize]
     [HttpPut("update")]
-    public async Task<ActionResult<MemberDto>> UpdateById(AppUser userInput, CancellationToken cancellationToken)
+    public async Task<ActionResult<MemberDto>> UpdateById(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         var memberId = User.GetUserId();
 
