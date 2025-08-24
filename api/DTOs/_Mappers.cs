@@ -5,6 +5,7 @@ public static class Mappers
     public static AppUser ConvertRegisterDtoToAppUser(RegisterDto registerDto)
     {
         return new AppUser(
+            Id: null,
             Email: registerDto.Email,
             UserName: registerDto.UserName,
             Password: registerDto.Password,
