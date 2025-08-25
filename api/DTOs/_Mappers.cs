@@ -1,3 +1,5 @@
+using System.Security.Policy;
+
 namespace api.DTOs;
 
 public static class Mappers
@@ -34,6 +36,16 @@ public static class Mappers
             Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             City: appUser.City,
             Country: appUser.Country
+        );
+    }
+
+    public static Photo ConvertPhotoUrlsToPhoto(string[] photoUrls, bool isMain)
+    {
+        return new Photo(
+            Url_165: photoUrls[0],
+            Url_256: photoUrls[1],
+            Url_enlarged: photoUrls[2],
+            IsMain: isMain
         );
     }
 }
