@@ -23,8 +23,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Date of Birth</mat-label>
-                <input [formControl]="DateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput
-                    [matDatepicker]="dp3" placeholder="Enter your date off birth">
+                <input [formControl]="DateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
+                    placeholder="Enter your date off birth">
                 <mat-hint>Between {{minDate.getFullYear()}} to {{maxDate.getFullYear()}}</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
@@ -45,6 +45,10 @@
 
             <button (click)="register()" mat-flat-button color="parimary"
                 [disabled]="registerFg.invalid">Register</button>
+
+            @if (passwordsNotMatch) {
+            <p>Passwords don't match!</p>
+            }
         </form>
     </div>
 </section>
