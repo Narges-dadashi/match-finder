@@ -21,3 +21,6 @@ global using System.Text;
 global using Microsoft.AspNetCore.Authorization;
 global using api.Extensions;
 global using api.Services;
+global using image_processing.Interfaces;
+global using image_processing.Services;
+global using api.Extensions.Validations;
