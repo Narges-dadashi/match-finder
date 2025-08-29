@@ -16,7 +16,7 @@ public class AccountRepository : IAccountRepository
     }
     #endregion
 
-    public async Task<LoggedInDto?> RegisterAsync(AppUser userInput, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
         AppUser user = await _collection.Find<AppUser>(doc =>
             doc.Email == userInput.Email).FirstOrDefaultAsync(cancellationToken);
@@ -24,11 +24,13 @@ public class AccountRepository : IAccountRepository
         if (user is not null)
             return null;
 
-        await _collection.InsertOneAsync(userInput, null, cancellationToken);
+        AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
-        string? token = _tokenService.CreateToken(userInput);
+        await _collection.InsertOneAsync(appUser, null, cancellationToken);
 
-        return Mappers.ConvertAppUserToLoggedInDto(userInput, token);
+        string? token = _tokenService.CreateToken(appUser);
+
+        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
@@ -55,7 +57,7 @@ public class AccountRepository : IAccountRepository
         return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId, cancellationToken);
     }
 
-     public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string userId, string token, CancellationToken cancellationToken)
+    public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string userId, string token, CancellationToken cancellationToken)
     {
         AppUser? appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
 
