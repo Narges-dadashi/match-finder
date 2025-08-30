@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
+import { Register } from '../../../models/register.model';
 
 @Component({
   selector: 'app-register',
@@ -42,12 +43,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   registerFg = this.fB.group({
     emailCtrl: ['', [Validators.required, Validators.email]],
-    userNameCtrl: '',
-    passwordCtrl: '',
-    confirmPasswordCtrl: '',
-    dateOfBirthCtrl: ['', [Validators.required]],
-    cityCtrl: '',
-    countryCtrl: ''
+    userNameCtrl: ['', [Validators.required]],
+    passwordCtrl: ['', [Validators.required]],
+    confirmPasswordCtrl: ['', [Validators.required]],
+    dateOfBirthCtrl: ['', [Validators.required]]
   })
 
   get EmailCtrl(): FormControl {
@@ -70,26 +69,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerFg.get('dateOfBirthCtrl') as FormControl;
   }
 
-  get CityCtrl(): FormControl {
-    return this.registerFg.get('cityCtrl') as FormControl;
-  }
-
-  get CountryCtrl(): FormControl {
-    return this.registerFg.get('countryCtrl') as FormControl;
-  }
-
   register(): void {
     const dob: string | undefined = this.getDateOnly(this.DateOfBirthCtrl.value);
 
     if (this.PasswordCtrl.value === this.ConfirmPasswordCtrl.value) {
-      let user: AppUser = {
+      let user: Register = {
         email: this.EmailCtrl.value,
         userName: this.UserNameCtrl.value,
         password: this.PasswordCtrl.value,
         confirmPassword: this.ConfirmPasswordCtrl.value,
-        dateOfBirth: dob,
-        city: this.CityCtrl.value,
-        country: this.CountryCtrl.value
+        dateOfBirth: dob
       }
 
       this.accountService.register(user).subscribe({
