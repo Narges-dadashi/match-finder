@@ -1,3 +1,5 @@
+using MongoDB.Driver.Linq;
+
 namespace api.Repositories;
 
 public class UserRepository : IUserRepository
@@ -78,5 +80,33 @@ public class UserRepository : IUserRepository
         }
 
         return null;
+    }
+
+    public async Task<UpdateResult?> SetMainPhotoAsync(string userId, string photoUrlIn, CancellationToken cancellationToken)
+    {
+        if (!ObjectId.TryParse(userId, out var objectId))
+            return null;
+
+        #region  UNSET the previous main photo: Find the photo with IsMain True; update IsMain to False
+        FilterDefinition<AppUser>? filterOld = Builders<AppUser>.Filter
+            .Where(appUser =>
+                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.IsMain == true));
+
+        UpdateDefinition<AppUser>? updateOld = Builders<AppUser>.Update
+            .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, false);
+
+        await _collection.UpdateOneAsync(filterOld, updateOld, null, cancellationToken);
+        #endregion
+
+        #region  SET the new main photo: find new photo by its Url_165; update IsMain to True
+        FilterDefinition<AppUser>? filterNew = Builders<AppUser>.Filter
+            .Where(appUser =>
+                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.Url_165 == photoUrlIn));
+
+        UpdateDefinition<AppUser>? updateNew = Builders<AppUser>.Update
+            .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, true);
+
+        return await _collection.UpdateOneAsync(filterNew, updateNew, null, cancellationToken);
+        #endregion
     }
 }
