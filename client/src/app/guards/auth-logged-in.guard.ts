@@ -21,7 +21,7 @@ export const authLoggedInGuard: CanActivateFn = (route, state) => {
 
       router.navigateByUrl('members')
 
-      return false; // block the component
+      return false;
     }
   }
 
