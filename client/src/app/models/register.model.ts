@@ -1,6 +1,6 @@
 export interface Register {
-    userName: string;
     email: string;
+    userName: string;
     dateOfBirth: string | undefined;
     password: string;
     confirmPassword: string;

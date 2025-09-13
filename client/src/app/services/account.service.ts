@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { map, Observable } from 'rxjs';
 import { LoggedIn } from '../models/logged-in.model';
+import { map, Observable } from 'rxjs';
 import { Login } from '../models/login.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class AccountService {
         if (res) {
           this.setCurrentUser(res);
 
-          this.router.navigateByUrl('/members');
+          this.router.navigateByUrl('members');
 
           return res;
         }
@@ -40,11 +40,10 @@ export class AccountService {
         if (res) {
           this.setCurrentUser(res);
 
-          this.router.navigateByUrl('/members');
+          this.router.navigateByUrl('members');
 
           return res;
         }
-
         return null;
       })
     );
@@ -68,7 +67,6 @@ export class AccountService {
 
   setCurrentUser(loggedIn: LoggedIn): void {
     this.loggedInUserSig.set(loggedIn);
-
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }

@@ -1,6 +1,6 @@
 <div class="container">
-    <h3>Find Your Beloved One!</h3>
-    <div class="members-container">
+    <h1>Find Your Beloved One!</h1>
+    <div class="memebrs-container">
         @for (member of members; track $index) {
         <mat-card class="card">
             <div class="card-img-wrapper">
@@ -8,7 +8,7 @@
                 <ul class="user-icons">
                     <li>
                         <button mat-mini-fab>
-                            <mat-icon>person_add</mat-icon>
+                            <mat-icon color="primary">person_add</mat-icon>
                         </button>
                     </li>
                     <li>
@@ -27,7 +27,7 @@
                 <div class="title">
                     <mat-icon>boy</mat-icon>
                 </div>
-                <mat-card-subtitle>{{member.city}}</mat-card-subtitle>
+                <mat-card-subtitle>{{ member.city }}</mat-card-subtitle>
             </mat-card-header>
         </mat-card>
         }

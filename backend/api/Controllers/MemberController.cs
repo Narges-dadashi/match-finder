@@ -9,25 +9,19 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
         var userId = User.GetUserId();
 
         if (userId is null)
-            return Unauthorized("You are not logged in. Please login again");
+            return Unauthorized("You are not login. Please login again");
 
-        IEnumerable<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);
+        Console.WriteLine(userId);
 
-        if (appUsers is null)
+        IEnumerable<AppUser> appUsers = await memberRepository.GetAllAsync(cancellationToken);
+
+        if (!appUsers.Any())
             return NoContent();
 
         List<MemberDto> memberDtos = [];
 
         foreach (AppUser user in appUsers)
         {
-            // MemberDto memberDto = new(
-            //     Email: user.Email,
-            //     UserName: user.UserName,
-            //     Age: user.Age,
-            //     City: user.City,
-            //     Country: user.Country
-            // );
-
             MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(user);
 
             memberDtos.Add(memberDto);
@@ -36,6 +30,7 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
         return memberDtos;
     }
 
+    [HttpGet("get-by-username/{userName}")]
     public async Task<ActionResult<MemberDto?>> GetByUserName(string userName, CancellationToken cancellationToken)
     {
         MemberDto? memberDto = await memberRepository.GetByUserNameAsync(userName, cancellationToken);

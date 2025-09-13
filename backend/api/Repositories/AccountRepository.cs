@@ -2,11 +2,10 @@ namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
-    #region Db and Token Settings
+    #region Mongodb
     private readonly IMongoCollection<AppUser> _collection;
     private readonly ITokenService _tokenService;
 
-    // constructor - dependency injections
     public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
@@ -35,8 +34,9 @@ public class AccountRepository : IAccountRepository
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
-        AppUser user = await _collection.Find(doc =>
-        doc.Email == userInput.Email && doc.Password == userInput.Password).FirstOrDefaultAsync(cancellationToken);
+        AppUser user =
+         await _collection.Find(doc => doc.Email == userInput.Email && doc.Password == userInput.Password)
+         .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)
             return null;

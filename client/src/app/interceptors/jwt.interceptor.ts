@@ -4,9 +4,9 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { LoggedIn } from '../models/logged-in.model';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  const platformId = inject(PLATFORM_ID);
+  const plarfromId = inject(PLATFORM_ID);
 
-  if (isPlatformBrowser(platformId)) {
+  if (isPlatformBrowser(plarfromId)) {
     const loggedInUserStr: string | null = localStorage.getItem('loggedInUser');
 
     if (loggedInUserStr) {

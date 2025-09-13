@@ -1,17 +1,12 @@
-using MongoDB.Driver.Linq;
-
 namespace api.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    #region Db and Token Settings    private readonly ILogger<UserRepository> _logger;
-
     private readonly IMongoCollection<AppUser> _collection;
     private readonly ITokenService _tokenService;
     private readonly IPhotoService _photoService;
     private readonly ILogger<UserRepository> _logger;
 
-    // constructor - dependency injections
     public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService, IPhotoService photoService, ILogger<UserRepository> logger)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
@@ -21,7 +16,6 @@ public class UserRepository : IUserRepository
         _photoService = photoService;
         _logger = logger;
     }
-    #endregion
 
     public async Task<AppUser?> GetByIdAsync(string userId, CancellationToken cancellationToken)
     {
@@ -33,21 +27,20 @@ public class UserRepository : IUserRepository
         return appUser;
     }
 
-    public async Task<MemberDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<UpdateDto?> UpdateByIdAsync(string userId, RegisterDto userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
-        .Set(user => user.Email, userInput.Email.Trim().ToLower());
+            .Set(user => user.Email, userInput.Email.Trim().ToLower());
 
         await _collection.UpdateOneAsync(user
             => user.Id == userId, updateDef, null, cancellationToken);
 
-        AppUser appUser = await _collection.Find(user
-            => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
+        AppUser appUser = await _collection.Find(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
             return null;
 
-        return Mappers.ConvertAppUserToMemberDto(appUser);
+        return Mappers.ConvertRegisterDtoToUpdateDto(userInput);
     }
 
     public async Task<Photo?> UploadPhotoAsync(IFormFile file, string userId, CancellationToken cancellationToken)
@@ -69,8 +62,6 @@ public class UserRepository : IUserRepository
             photo = appUser.Photos.Count == 0
                 ? Mappers.ConvertPhotoUrlsToPhoto(imageUrls, isMain: true)
                 : Mappers.ConvertPhotoUrlsToPhoto(imageUrls, isMain: false);
-
-            appUser.Photos.Add(photo);
 
             appUser.Photos.Add(photo);
 
@@ -110,7 +101,7 @@ public class UserRepository : IUserRepository
         #endregion
     }
 
-        public async Task<UpdateResult?> DeletePhotoAsync(string userId, string? url_165_In, CancellationToken cancellationToken)
+    public async Task<UpdateResult?> DeletePhotoAsync(string userId, string? url_165_In, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(url_165_In)) return null;
 

@@ -34,12 +34,12 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
         var userId = User.GetUserId();
 
         if (userId is null)
-            return Unauthorized("You are not logged. Please log in again");
+            return Unauthorized("You are not logged. Please log in again.");
 
         DeleteResult? deleteResult = await accountRepository.DeleteByIdAsync(userId, cancellationToken);
 
         if (deleteResult is null)
-            return BadRequest("Operation failed");
+            return BadRequest("Opration failed");
 
         return deleteResult;
     }

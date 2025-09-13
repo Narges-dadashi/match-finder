@@ -1,5 +1,3 @@
-using System.Security.Policy;
-
 namespace api.DTOs;
 
 public static class Mappers
@@ -15,7 +13,7 @@ public static class Mappers
             DateOfBirth: registerDto.DateOfBirth,
             City: "",
             Country: "",
-            Photos: new List<Photo>()
+            Photos: []
         );
     }
 
@@ -24,6 +22,7 @@ public static class Mappers
         return new(
             Email: appUser.Email,
             UserName: appUser.UserName,
+            Age: Extensions.DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Token: tokenValue
         );
     }
@@ -33,9 +32,16 @@ public static class Mappers
         return new(
             Email: appUser.Email,
             UserName: appUser.UserName,
-            Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
+            Age: Extensions.DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             City: appUser.City,
             Country: appUser.Country
+        );
+    }
+
+    public static UpdateDto ConvertRegisterDtoToUpdateDto(RegisterDto registerDto)
+    {
+        return new(
+            Email: registerDto.Email
         );
     }
 

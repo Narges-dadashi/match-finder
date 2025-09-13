@@ -12,16 +12,6 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input type="password" [formControl]="PasswordCtrl" matInput>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>ConfirmPassword</mat-label>
-                <input type="password" [formControl]="ConfirmPasswordCtrl" matInput>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
                 <mat-label>Date of Birth</mat-label>
                 <input [formControl]="DateOfBirthCtrl" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="dp3"
                     placeholder="Enter your date off birth">
@@ -33,8 +23,19 @@
                 }
             </mat-form-field>
 
-            <button (click)="register()" mat-flat-button color="parimary"
-                [disabled]="registerFg.invalid">Register</button>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" [formControl]="PasswordCtrl" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" [formControl]="ConfirmPasswordCtrl" matInput>
+            </mat-form-field>
+
+            <button (click)="register()" mat-flat-button color="parimary" [disabled]="registerFg.invalid">
+                Register
+            </button>
 
             @if (passwordsNotMatch) {
             <p>Passwords don't match!</p>

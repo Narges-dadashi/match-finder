@@ -4,7 +4,7 @@ $card_size: 9rem;
     display: flex;
     flex-direction: column;
 
-    .members-container {
+    .memebrs-container {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -59,10 +59,6 @@ $card_size: 9rem;
                     li {
                         transition-duration: 200ms;
                         transition-timing-function: ease-out;
-
-                        mat-icon {
-                            color: red;
-                        }
 
                         &:hover {
                             transform: scale(1.3, 1.3);

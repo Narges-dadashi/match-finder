@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace api.Models;
 
 public record AppUser(
@@ -14,4 +12,4 @@ public record AppUser(
     string City,
     string Country,
     List<Photo> Photos
-    );
+);

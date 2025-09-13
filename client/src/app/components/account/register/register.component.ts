@@ -1,8 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppUser } from '../../../models/app-user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,9 +12,8 @@ import { Register } from '../../../models/register.model';
   selector: 'app-register',
   standalone: true,
   imports: [
-    RouterLink,
     FormsModule, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule
+    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -38,16 +35,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscribedRegisterUser?.unsubscribe();
+      this.subscribedRegisterUser?.unsubscribe();
   }
 
   registerFg = this.fB.group({
     emailCtrl: ['', [Validators.required, Validators.email]],
     userNameCtrl: ['', [Validators.required]],
+    dateOfBirthCtrl: ['', [Validators.required]],
     passwordCtrl: ['', [Validators.required]],
-    confirmPasswordCtrl: ['', [Validators.required]],
-    dateOfBirthCtrl: ['', [Validators.required]]
-  })
+    confirmPasswordCtrl: ['', [Validators.required]]
+  });
 
   get EmailCtrl(): FormControl {
     return this.registerFg.get('emailCtrl') as FormControl;
@@ -55,6 +52,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   get UserNameCtrl(): FormControl {
     return this.registerFg.get('userNameCtrl') as FormControl;
+  }
+
+  get DateOfBirthCtrl(): FormControl {
+    return this.registerFg.get('dateOfBirthCtrl') as FormControl;
   }
 
   get PasswordCtrl(): FormControl {
@@ -65,10 +66,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerFg.get('confirmPasswordCtrl') as FormControl;
   }
 
-  get DateOfBirthCtrl(): FormControl {
-    return this.registerFg.get('dateOfBirthCtrl') as FormControl;
-  }
-
   register(): void {
     const dob: string | undefined = this.getDateOnly(this.DateOfBirthCtrl.value);
 
@@ -76,15 +73,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
       let user: Register = {
         email: this.EmailCtrl.value,
         userName: this.UserNameCtrl.value,
+        dateOfBirth: dob,
         password: this.PasswordCtrl.value,
-        confirmPassword: this.ConfirmPasswordCtrl.value,
-        dateOfBirth: dob
+        confirmPassword: this.ConfirmPasswordCtrl.value
       }
 
-      this.accountService.register(user).subscribe({
+      this.subscribedRegisterUser = this.accountService.register(user).subscribe({
         next: (res) => console.log(res),
         error: (err) => console.log(err.error)
-      });
+      })
     }
     else {
       this.passwordsNotMatch = true;

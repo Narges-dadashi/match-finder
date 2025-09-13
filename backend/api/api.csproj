@@ -19,4 +19,8 @@
       <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="../image_processing/image_processing.csproj" />
+    </ItemGroup>
+
 </Project>

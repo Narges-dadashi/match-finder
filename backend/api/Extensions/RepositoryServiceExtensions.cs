@@ -10,7 +10,7 @@ public static class RepositoryServiceExtensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPhotoModifySaveService, PhotoModifySaveService>();
         services.AddScoped<IPhotoService, PhotoService>();
-
+        
         return services;
     }
 }
