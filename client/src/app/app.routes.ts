@@ -5,9 +5,9 @@ import { LoginComponent } from './components/account/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { MemberComponent } from './components/member/member.component';
 import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
+import { MemberListComponent } from './components/members/member-list/member-list.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,7 +16,7 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [authGuard],
         children: [
-            { path: 'members', component: MemberComponent }
+            { path: 'members/member-list', component: MemberListComponent }
         ]
     },
     {
