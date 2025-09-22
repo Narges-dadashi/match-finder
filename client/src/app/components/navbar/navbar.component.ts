@@ -8,6 +8,7 @@ import { AccountService } from '../../services/account.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-navbar',
@@ -24,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 })
 export class NavbarComponent {
     accountService = inject(AccountService);
+    apiUrl = environment.apiUrl;
 
     logout(): void {
         this.accountService.logout();

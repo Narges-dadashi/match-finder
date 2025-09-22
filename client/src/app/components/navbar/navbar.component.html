@@ -8,7 +8,12 @@
     <section class="right">
         @if (accountService.loggedInUserSig(); as user) {
         <button [mat-menu-trigger-for]="appMenu" class="menu-button" mat-mini-fab>
+            @if (user.profilePhotoUrl) {
+            <img src="{{apiUrl + user.profilePhotoUrl}}">
+            }
+            @else {
             <span>{{user.userName[0] | titlecase}}</span>
+            }
         </button>
         }
         @else {
@@ -21,7 +26,12 @@
         @if (accountService.loggedInUserSig(); as user) {
         <div class="user-info">
             <div class="profile-info">
-                <img src="star.jpg" alt="{{user.userName[0] | titlecase}}">
+                @if (user.profilePhotoUrl) {
+                <img src="{{apiUrl + user.profilePhotoUrl}}">
+                }
+                @else {
+                <img src="member.jpg" alt="{{user.userName[0] | titlecase}}">
+                }
             </div>
             <div>
                 <p class="email">{{ user.email }}</p>
