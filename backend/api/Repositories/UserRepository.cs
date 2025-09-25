@@ -3,16 +3,14 @@ namespace api.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly IMongoCollection<AppUser> _collection;
-    private readonly ITokenService _tokenService;
     private readonly IPhotoService _photoService;
     private readonly ILogger<UserRepository> _logger;
 
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService, IPhotoService photoService, ILogger<UserRepository> logger)
+    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, IPhotoService photoService, ILogger<UserRepository> logger)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
 
-        _tokenService = tokenService;
         _photoService = photoService;
         _logger = logger;
     }
