@@ -1,0 +1,18 @@
+<main>
+    @if(member && loggedInUser) {
+    <section class="top">
+        <div>
+            @if (member.photos.length === 0) {
+            <mat-error>Your album is empty. You may upload some photos.</mat-error>
+            }
+        </div>
+        <div class="gallery">
+            @for (photo of member.photos; track $index) {
+            <div class="photos">
+                <img src="{{apiUrl + photo.url_165}}" width="165" height="165" alt="{{member.userName}} photo">
+            </div>
+            }
+        </div>
+    </section>
+    }
+</main>
