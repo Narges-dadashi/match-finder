@@ -27,14 +27,17 @@ export class PhotoEditorComponent {
   loggedInUser: LoggedIn | null | undefined;
   apiUrl: string = environment.apiUrl;
   uploader: FileUploader | undefined;
+  hasBaseDropZoneOver = false;
   private accountService = inject(AccountService);
 
-  constructor() {
+  ngOnInit(): void {
     this.loggedInUser = this.accountService.loggedInUserSig();
+
+    this.initializeUploader();
   }
 
-  ngOnInit(): void {
-    this.initializeUploader();
+  fileOverBase(event: boolean): void {
+    this.hasBaseDropZoneOver = event;
   }
 
   initializeUploader(): void {
