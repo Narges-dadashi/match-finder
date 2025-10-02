@@ -18,15 +18,15 @@ import { take } from 'rxjs';
 
 @Component({
   selector: 'app-photo-editor',
+  standalone: true,
   imports: [
     CommonModule,
-    MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, MatButtonModule,
-    FileUploadModule
+    MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, FileUploadModule, MatButtonModule
   ],
   templateUrl: './photo-editor.component.html',
-  styleUrl: './photo-editor.component.scss'
+  styleUrls: ['./photo-editor.component.scss']
 })
-export class PhotoEditorComponent {
+export class PhotoEditorComponent implements OnInit {
   @Input('memberInput') member: Member | undefined;
   loggedInUser: LoggedIn | null | undefined;
   apiUrl: string = environment.apiUrl;

@@ -12,12 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-edit',
+  standalone: true,
   imports: [
-    PhotoEditorComponent, CommonModule,
-    MatCardModule, MatTabsModule, MatButtonModule
+    MatCardModule, MatTabsModule, CommonModule, PhotoEditorComponent, MatButtonModule
   ],
   templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.scss'
+  styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
   private _platformId = inject(PLATFORM_ID);
