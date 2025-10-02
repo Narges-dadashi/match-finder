@@ -8,6 +8,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 import { MemberListComponent } from './components/members/member-list/member-list.component';
+import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,7 +17,8 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [authGuard],
         children: [
-            { path: 'members/member-list', component: MemberListComponent }
+            { path: 'members/member-list', component: MemberListComponent },
+            { path: 'user/user-edit', component: UserEditComponent },
         ]
     },
     {
@@ -24,11 +26,11 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [authLoggedInGuard],
         children: [
-            { path: 'account/register', component: RegisterComponent },
             { path: 'account/login', component: LoginComponent },
+            { path: 'account/register', component: RegisterComponent },
         ]
     },
-    { path: 'footer', component: FooterComponent },
     { path: 'navbar', component: NavbarComponent },
+    { path: 'footer', component: FooterComponent },
     { path: '**', component: NotFoundComponent }
 ];

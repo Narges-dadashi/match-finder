@@ -9,7 +9,7 @@
         @if (accountService.loggedInUserSig(); as user) {
         <button [mat-menu-trigger-for]="appMenu" class="menu-button" mat-mini-fab>
             @if (user.profilePhotoUrl) {
-            <img src="{{apiUrl + user.profilePhotoUrl}}">
+            <img src="{{apiUrl + user.profilePhotoUrl}}" alt="">
             }
             @else {
             <span>{{user.userName[0] | titlecase}}</span>
@@ -27,7 +27,7 @@
         <div class="user-info">
             <div class="profile-info">
                 @if (user.profilePhotoUrl) {
-                <img src="{{apiUrl + user.profilePhotoUrl}}">
+                <img src="{{apiUrl + user.profilePhotoUrl}}" alt="">
                 }
                 @else {
                 <img src="member.jpg" alt="{{user.userName[0] | titlecase}}">
@@ -41,7 +41,7 @@
 
         <mat-divider></mat-divider>
         <mat-list>
-            <mat-list-item>
+            <mat-list-item routerLink="user/user-edit">
                 <div class="menu-items">
                     <mat-icon>edit_note</mat-icon>
                     Edit Profile
