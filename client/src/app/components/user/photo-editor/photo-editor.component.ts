@@ -64,4 +64,12 @@ export class PhotoEditorComponent {
       }
     }
   }
+
+  setNavbarProfilePhoto(url_165: string): void {
+    if (this.loggedInUser) {
+      this.loggedInUser.profilePhotoUrl = url_165;
+
+      this.accountService.loggedInUserSig.set(this.loggedInUser);
+    }
+  }
 }
