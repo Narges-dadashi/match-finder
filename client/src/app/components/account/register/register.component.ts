@@ -16,7 +16,7 @@ import { Register } from '../../../models/register.model';
     MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   accountService = inject(AccountService);

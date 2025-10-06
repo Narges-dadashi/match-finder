@@ -7,11 +7,12 @@ import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-member-card',
+  standalone: true,
   imports: [
     CommonModule, MatCardModule, MatIconModule
   ],
   templateUrl: './member-card.component.html',
-  styleUrl: './member-card.component.scss'
+  styleUrls: ['./member-card.component.scss']
 })
 export class MemberCardComponent {
   @Input('memberInput') memberIn: Member | undefined;

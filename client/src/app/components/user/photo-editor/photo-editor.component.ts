@@ -1,4 +1,4 @@
-import { Component, Inject, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Member } from '../../../models/member.model';
 import { LoggedIn } from '../../../models/logged-in.model';
 import { environment } from '../../../../environments/environment.development';

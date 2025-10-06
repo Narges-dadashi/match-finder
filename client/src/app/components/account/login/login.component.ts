@@ -20,7 +20,7 @@ import { LoggedIn } from '../../../models/logged-in.model';
     MatButtonModule, MatFormFieldModule, MatInputModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   accountService = inject(AccountService);

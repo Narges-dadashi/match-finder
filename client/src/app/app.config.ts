@@ -2,18 +2,19 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+// import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
-import { provideNativeDateAdapter } from '@angular/material/core';
+// import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { NativeDateAdapter } from '@angular/material/core'; // میگه از این استفاده کن
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideAnimationsAsync(),
-    provideNativeDateAdapter(),
+    provideAnimations(),
     provideHttpClient(withInterceptors([jwtInterceptor]))
   ]
 };

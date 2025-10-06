@@ -21,7 +21,7 @@ import { environment } from '../../../environments/environment.development';
         RouterModule
     ],
     templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss'
+    styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
     accountService = inject(AccountService);

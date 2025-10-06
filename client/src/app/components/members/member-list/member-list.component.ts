@@ -9,12 +9,13 @@ import { MemberCardComponent } from '../member-card/member-card.component';
 
 @Component({
   selector: 'app-member-list',
+  standalone: true,
   imports: [
     RouterLink,
     MatCardModule, MatIconModule, MemberCardComponent
   ],
   templateUrl: './member-list.component.html',
-  styleUrl: './member-list.component.scss'
+  styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent {
   memberService = inject(MemberService);
