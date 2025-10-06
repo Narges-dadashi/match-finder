@@ -11,16 +11,15 @@ import { Observable } from 'rxjs';
 import { LoggedIn } from '../../../models/logged-in.model';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    RouterLink,
-    FormsModule, ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule, MatFormFieldModule, MatInputModule,
-  ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    imports: [
+        RouterLink,
+        FormsModule, ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule, MatFormFieldModule, MatInputModule,
+    ],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   accountService = inject(AccountService);

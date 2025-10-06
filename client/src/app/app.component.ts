@@ -8,17 +8,16 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet, RouterModule,
-    FormsModule, ReactiveFormsModule,
-    MatButtonModule,
-    NavbarComponent,
-    FooterComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    imports: [
+        RouterOutlet, RouterModule,
+        FormsModule, ReactiveFormsModule,
+        MatButtonModule,
+        NavbarComponent,
+        FooterComponent
+    ],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,14 +9,14 @@ import { Subscription } from 'rxjs';
 import { Register } from '../../../models/register.model';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [
-    FormsModule, ReactiveFormsModule,
-    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
-  ],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    standalone: true,
+    imports: [
+        FormsModule, ReactiveFormsModule,
+        MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
+    ],
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   accountService = inject(AccountService);

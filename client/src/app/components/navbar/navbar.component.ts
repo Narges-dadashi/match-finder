@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-navbar',
-    standalone: true,
     imports: [
         RouterLink, CommonModule,
         MatButtonModule, MatToolbarModule,

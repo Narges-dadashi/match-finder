@@ -11,13 +11,12 @@ import { take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-user-edit',
-  standalone: true,
-  imports: [
-    MatCardModule, MatTabsModule, CommonModule, PhotoEditorComponent, MatButtonModule
-  ],
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+    selector: 'app-user-edit',
+    imports: [
+        MatCardModule, MatTabsModule, CommonModule, PhotoEditorComponent, MatButtonModule
+    ],
+    templateUrl: './user-edit.component.html',
+    styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
   private _platformId = inject(PLATFORM_ID);

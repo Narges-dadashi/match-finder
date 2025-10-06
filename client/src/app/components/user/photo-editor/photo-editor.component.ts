@@ -17,14 +17,13 @@ import { ApiResponse } from '../../../models/helpers/apiResponse.model';
 import { take } from 'rxjs';
 
 @Component({
-  selector: 'app-photo-editor',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, FileUploadModule, MatButtonModule
-  ],
-  templateUrl: './photo-editor.component.html',
-  styleUrls: ['./photo-editor.component.scss']
+    selector: 'app-photo-editor',
+    imports: [
+        CommonModule,
+        MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, FileUploadModule, MatButtonModule
+    ],
+    templateUrl: './photo-editor.component.html',
+    styleUrls: ['./photo-editor.component.scss']
 })
 export class PhotoEditorComponent implements OnInit {
   @Input('memberInput') member: Member | undefined;
