@@ -39,8 +39,14 @@ public static class Mappers
             Email: appUser.Email,
             UserName: appUser.UserName,
             Age: Extensions.DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
+            LastActive: appUser.LastActive,
+            Introduction: appUser.Introduction,
+            LookingFor: appUser.LookingFor,
+            Interests: appUser.Interests,
+            Gender: appUser.Gender,
             City: appUser.City,
-            Country: appUser.Country
+            Country: appUser.Country,
+            Photos: appUser.Photos
         );
     }
 
