@@ -50,13 +50,6 @@ public static class Mappers
         );
     }
 
-    public static UpdateDto ConvertRegisterDtoToUpdateDto(RegisterDto registerDto)
-    {
-        return new(
-            Email: registerDto.Email
-        );
-    }
-
     public static Photo ConvertPhotoUrlsToPhoto(string[] photoUrls, bool isMain)
     {
         return new Photo(
