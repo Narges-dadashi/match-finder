@@ -40,16 +40,16 @@ mat-toolbar {
         }
 
         .profile-info {
-            * {
-                margin: 0;
-            }
-
             font-size: 3rem;
             background-color: rgb(246, 209, 164);
             width: 4rem;
             height: 4rem;
             border-radius: 50%;
             box-shadow: 3px 3px 3px rgb(144, 144, 144);
+
+            * {
+                margin: 0;
+            }
 
             img {
                 height: 4rem;
@@ -74,6 +74,7 @@ mat-toolbar {
             line-height: 47px;
             padding-left: 1rem;
             padding-right: 5rem;
+            transition: background-color 0.2s ease;
 
             &:hover {
                 background-color: rgb(255, 176, 255);

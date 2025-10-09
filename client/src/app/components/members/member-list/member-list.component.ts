@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 import { MemberCardComponent } from '../member-card/member-card.component';
 
 @Component({
-    selector: 'app-member-list',
-    imports: [
-        RouterLink,
-        MatCardModule, MatIconModule, MemberCardComponent
-    ],
-    templateUrl: './member-list.component.html',
-    styleUrls: ['./member-list.component.scss']
+  selector: 'app-member-list',
+  standalone: true,
+  imports: [
+    MatCardModule, MatIconModule, MemberCardComponent
+  ],
+  templateUrl: './member-list.component.html',
+  styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent {
   memberService = inject(MemberService);
