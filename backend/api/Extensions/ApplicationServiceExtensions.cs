@@ -31,6 +31,12 @@ public static class ApplicationServiceExtensions
             });
         #endregion Cors
 
+        #region Other
+
+        services.AddScoped<LogUserActivity>(); // monitor/log userActivity
+
+        #endregion Other
+
         return services;
     }
 }

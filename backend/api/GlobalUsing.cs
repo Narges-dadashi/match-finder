@@ -27,3 +27,4 @@ global using api.Extensions.Validations;
 global using MongoDB.Driver.Linq;
 global using image_processing.Helpers;
 global using Microsoft.AspNetCore.Mvc.Filters;
+global using api.Helpers;
