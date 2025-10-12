@@ -6,18 +6,20 @@ import { AccountService } from './services/account.service';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { isPlatformBrowser } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        RouterOutlet, RouterModule,
-        FormsModule, ReactiveFormsModule,
-        MatButtonModule,
-        NavbarComponent,
-        FooterComponent
-    ],
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    RouterOutlet, RouterModule,
+    FormsModule, ReactiveFormsModule,
+    MatButtonModule,
+    NavbarComponent,
+    FooterComponent, NgxSpinnerModule
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   accountService = inject(AccountService);
