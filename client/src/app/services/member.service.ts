@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment.development';
 export class MemberService {
   http = inject(HttpClient);
 
-  private readonly _baseApiUrl: string = environment.apiUrl + 'api/member';
+  private readonly _baseApiUrl: string = environment.apiUrl + 'api/member/';
 
   getAllMembers(): Observable<Member[]> {
 

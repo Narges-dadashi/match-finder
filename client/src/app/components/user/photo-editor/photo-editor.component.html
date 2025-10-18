@@ -14,16 +14,20 @@
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
                         [disabled]="photo.isMain">Set profile
                     </button>
+                    <button (click)="deletePhotoComp(photo.url_165, $index)" mat-mini-fab color="warn"
+                        [disabled]="photo.isMain">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </div>
             }
 
             <div class="upload-photo-area">
-                <!-- <mat-card ng2FileDrop (fileOver)="fileOverBase($event)" (click)="fileInput.click()"
+                <mat-card ng2FileDrop (fileOver)="fileOverBase($event)" (click)="fileInput.click()"
                     [uploader]="uploader" [ngClass]="{
                         'file-not-over': !hasBaseDropZoneOver,
                         'file-over': hasBaseDropZoneOver
-                    }"> -->
+                    }">
                     <mat-card-header>
                         <mat-card-title>Add Photos</mat-card-title>
                         <mat-card-subtitle>Click or Drop photos here</mat-card-subtitle>
@@ -33,9 +37,9 @@
                     </mat-card-content>
                     <mat-card-actions>
                         <button type="button" mat-raised-button>Choose Photos</button>
-                        <!-- <input multiple type="file" #fileInput ng2FileSelect [uploader]="uploader" id="file"> -->
+                        <input multiple type="file" #fileInput ng2FileSelect [uploader]="uploader" id="file">
                     </mat-card-actions>
-                <!-- </mat-card> -->
+                </mat-card>
             </div>
         </div>
     </section>

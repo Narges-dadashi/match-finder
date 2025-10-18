@@ -21,10 +21,10 @@ import { take } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, FileUploadModule, MatButtonModule
+    MatFormFieldModule, MatInputModule, MatCardModule, FileUploadModule, MatIconModule, MatButtonModule
   ],
   templateUrl: './photo-editor.component.html',
-  styleUrls: ['./photo-editor.component.scss']
+  styleUrl: './photo-editor.component.scss'
 })
 export class PhotoEditorComponent implements OnInit {
   @Input('memberInput') member: Member | undefined;
@@ -111,5 +111,25 @@ export class PhotoEditorComponent implements OnInit {
           }
         }
       });
+  }
+
+  deletePhotoComp(url_165: string, index: number): void {
+    console.log(index);
+
+    this._userService.deletePhoto(url_165)
+      .pipe(take(1))
+      .subscribe({
+        next: (response: ApiResponse) => {
+          if (response && this.member) {
+            this.member.photos.splice(index, 1);
+
+            this._snackBar.open(response.message, 'Close', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              duration: 7000
+            })
+          }
+        }
+      })
   }
 }
