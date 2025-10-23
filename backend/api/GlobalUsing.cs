@@ -28,3 +28,6 @@ global using MongoDB.Driver.Linq;
 global using image_processing.Helpers;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using api.Helpers;
+global using System.Net;
+global using System.Text.Json;
+global using api.Models.Errors;
