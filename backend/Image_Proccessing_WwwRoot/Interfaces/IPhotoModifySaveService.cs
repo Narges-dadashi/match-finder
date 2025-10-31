@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
+
 namespace Image_Processing_WwwRoot.Interfaces;
 
 public interface IPhotoModifySaveService

@@ -1,8 +1,9 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "api\api.csproj", "{01FA3EAA-DA2C-47E9-8E0D-8CBD0740E455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image_processing", "image_processing\image_processing.csproj", "{7E546ACF-2F3F-4C61-B175-F497936189F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image_Proccessing_WwwRoot", "Image_Proccessing_WwwRoot\Image_Proccessing_WwwRoot.csproj", "{04CFCBFC-AF46-4FB8-9BA5-8E70444CE677}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +15,12 @@ Global
 		{01FA3EAA-DA2C-47E9-8E0D-8CBD0740E455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01FA3EAA-DA2C-47E9-8E0D-8CBD0740E455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01FA3EAA-DA2C-47E9-8E0D-8CBD0740E455}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E546ACF-2F3F-4C61-B175-F497936189F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E546ACF-2F3F-4C61-B175-F497936189F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E546ACF-2F3F-4C61-B175-F497936189F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E546ACF-2F3F-4C61-B175-F497936189F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CFCBFC-AF46-4FB8-9BA5-8E70444CE677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CFCBFC-AF46-4FB8-9BA5-8E70444CE677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CFCBFC-AF46-4FB8-9BA5-8E70444CE677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CFCBFC-AF46-4FB8-9BA5-8E70444CE677}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
