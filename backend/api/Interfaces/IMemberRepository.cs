@@ -2,6 +2,6 @@ namespace api.Interfaces;
 
 public interface IMemberRepository
 {
-    public Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken);
+    public Task<PagedList<AppUser>> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken);
     public Task<MemberDto?> GetByUserNameAsync(string userName, CancellationToken cancellationToken);
 }
