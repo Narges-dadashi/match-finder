@@ -4,23 +4,30 @@ namespace api.Controllers;
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
 
         if (userId is null)
             return Unauthorized("You are not login. Please login again");
 
-        Console.WriteLine(userId);
+        PagedList<AppUser> pagedAppUsers = await memberRepository.GetAllAsync(paginationParams, cancellationToken);
 
-        IEnumerable<AppUser> appUsers = await memberRepository.GetAllAsync(cancellationToken);
-
-        if (!appUsers.Any())
+        if (pagedAppUsers.Count == 0)
             return NoContent();
+
+        PaginationHeader paginationHeader = new(
+            CurrentPage: pagedAppUsers.CurrentPage,
+            ItemsPerPage: pagedAppUsers.PageSize,
+            TotalItems: pagedAppUsers.TotalItems,
+            TotalPages: pagedAppUsers.TotalPages
+        );
+
+        Response.AddPaginationHeader(paginationHeader);
 
         List<MemberDto> memberDtos = [];
 
-        foreach (AppUser user in appUsers)
+        foreach (AppUser user in pagedAppUsers)
         {
             MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(user);
 

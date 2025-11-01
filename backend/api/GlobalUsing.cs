@@ -31,3 +31,4 @@ global using api.Models.Errors;
 global using Image_Processing_WwwRoot.Interfaces;
 global using Image_Processing_WwwRoot.Services;
 global using Image_Processing_WwwRoot.Helpers;
+global using api.Models.Helpers;
