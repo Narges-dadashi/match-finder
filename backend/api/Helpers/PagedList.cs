@@ -19,7 +19,7 @@ public class PagedList<T> : List<T>
     public int PageSize { get; private set; }
     public int TotalItems { get; private set; }
 
-    public static async Task<PagedList<T>> CreatePagedListAsync(IQueryable<T>? query, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public static async Task<PagedList<T>> CreatePagedListAsync(IQueryable<T> query, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         int count = await query.CountAsync<T>(cancellationToken);
 

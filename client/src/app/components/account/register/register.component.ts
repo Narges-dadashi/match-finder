@@ -7,21 +7,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 import { Register } from '../../../models/register.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-    selector: 'app-register',
-    standalone: true,
-    imports: [
-        FormsModule, ReactiveFormsModule,
-        MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
-    ],
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss']
+  selector: 'app-register',
+  standalone: true,
+  imports: [
+    FormsModule, ReactiveFormsModule,
+    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
+  ],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
   subscribedRegisterUser: Subscription | undefined;
+  errors: string[] | undefined;
 
   minDate = new Date();
   maxDate = new Date();
@@ -35,7 +37,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subscribedRegisterUser?.unsubscribe();
+    this.subscribedRegisterUser?.unsubscribe();
   }
 
   registerFg = this.fB.group({
@@ -80,7 +82,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
       this.subscribedRegisterUser = this.accountService.register(user).subscribe({
         next: (res) => console.log(res),
-        error: (err) => console.log(err.error)
+        error: (err: HttpErrorResponse) => {
+          if (err.error.errors) {
+            this.errors = err.error.errors
+          }
+        }
       })
     }
     else {
