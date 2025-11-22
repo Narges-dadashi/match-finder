@@ -32,3 +32,8 @@ global using Image_Processing_WwwRoot.Interfaces;
 global using Image_Processing_WwwRoot.Services;
 global using Image_Processing_WwwRoot.Helpers;
 global using api.Models.Helpers;
+global using AspNetCore.Identity.MongoDbCore.Models;
+global using MongoDbGenericRepository.Attributes;
+global using AspNetCore.Identity.MongoDbCore.Extensions;
+global using AspNetCore.Identity.MongoDbCore.Infrastructure;
+global using Microsoft.AspNetCore.Identity;
