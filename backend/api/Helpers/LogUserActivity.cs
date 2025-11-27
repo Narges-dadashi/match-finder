@@ -1,19 +1,13 @@
 namespace api.Helpers;
 
-// client => api => Controller (Request.HttpContext) => 
-// AccountRepository => DB => AccountRepository => 
-// Controller (HttpContext.Response) => client
-
 public class LogUserActivity(ILogger<LogUserActivity> _logger) : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        ActionExecutedContext? resultNext = await next(); // After api's processing is done. 
-        // Use 'context' instead of 'next' for before api's processing.
+        ActionExecutedContext? resultNext = await next(); 
 
         if (resultNext is null) return;
 
-        // return if User is NOT authenticated
         if (resultNext.HttpContext.User.Identity is not null && !resultNext.HttpContext.User.Identity.IsAuthenticated)
             return;
 
@@ -29,9 +23,9 @@ public class LogUserActivity(ILogger<LogUserActivity> _logger) : IAsyncActionFil
 
         if (accountRepository is null) return;
 
-        CancellationToken cancellationToken = resultNext.HttpContext.RequestAborted; // access cancellationToken
+        CancellationToken cancellationToken = resultNext.HttpContext.RequestAborted;
 
-        UpdateResult? result  = await accountRepository.UpdateLastActive(loggedInUserId, cancellationToken);
+        UpdateResult? result = await accountRepository.UpdateLastActive(loggedInUserId, cancellationToken);
 
         if (result is null || result.ModifiedCount == 0)
             _logger.LogError("Update lastActive in db failed. Check LogUserActivity.cs");

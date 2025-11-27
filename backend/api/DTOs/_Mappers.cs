@@ -4,32 +4,32 @@ public static class Mappers
 {
     public static AppUser ConvertRegisterDtoToAppUser(RegisterDto registerDto)
     {
-        return new AppUser
+        AppUser appUser = new AppUser()
         {
-            Email = registerDto.Email.Trim().ToLowerInvariant(),
-            UserName = registerDto.UserName.Trim().ToLowerInvariant(),
-            DateOfBirth = registerDto.DateOfBirth,
-            Password = registerDto.Password,
-            ConfirmPassword = registerDto.ConfirmPassword,
+            Email = registerDto.Email,
+            UserName = registerDto.UserName,
+            DateOfBirth = registerDto.DateOfBirth
         };
+
+        return appUser;
     }
-    
+
     public static LoggedInDto ConvertAppUserToLoggedInDto(AppUser appUser, string tokenValue)
     {
-        return new(
-            Email: appUser.Email,
-            UserName: appUser.UserName,
-            Age: Extensions.DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
-            Token: tokenValue,
-            ProfilePhotoUrl: appUser.Photos.FirstOrDefault(photo => photo.IsMain)?.Url_165
-        );
+        return new LoggedInDto
+        {
+            Token = tokenValue,
+            Email = appUser.Email,
+            UserName = appUser.UserName,
+            ProfilePhotoUrl = appUser.Photos.FirstOrDefault(photo => photo.IsMain)?.Url_165
+        };
     }
 
     public static MemberDto ConvertAppUserToMemberDto(AppUser appUser)
     {
         return new(
-            Email: appUser.Email,
-            UserName: appUser.UserName,
+            Email: appUser.Email!,
+            UserName: appUser.UserName!,
             Age: Extensions.DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             LastActive: appUser.LastActive,
             Introduction: appUser.Introduction,

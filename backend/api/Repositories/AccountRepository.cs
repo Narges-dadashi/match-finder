@@ -5,61 +5,94 @@ public class AccountRepository : IAccountRepository
     #region Mongodb
     private readonly IMongoCollection<AppUser> _collection;
     private readonly ITokenService _tokenService;
+    private readonly UserManager<AppUser> _userManager;
 
-    public AccountRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
+    public AccountRepository(IMongoClient client, IMyMongoDbSettings dbSettings, ITokenService tokenService, UserManager<AppUser> userManager)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
-
+        _userManager = userManager;
         _tokenService = tokenService;
     }
     #endregion
 
     public async Task<LoggedInDto?> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        AppUser user = await _collection.Find<AppUser>(doc =>
-            doc.Email == userInput.Email).FirstOrDefaultAsync(cancellationToken);
+        var appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
-        if (user is not null)
-            return null;
+        var userCreationResult = await _userManager.CreateAsync(appUser, userInput.Password);
 
-        AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
+        if (!userCreationResult.Succeeded)
+        {
+            var errors = userCreationResult.Errors
+                .Select(e => e.Description)
+                .ToList();
 
-        await _collection.InsertOneAsync(appUser, null, cancellationToken);
+            return new LoggedInDto
+            {
+                Errors = errors,
+            };
+        }
 
-        string? token = _tokenService.CreateToken(appUser);
+        var token = await _tokenService.CreateToken(appUser);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return new LoggedInDto
+            {
+                Errors = new List<string> { "Failed to generate authentication token." },
+            };
+        }
 
         return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
-        AppUser user =
-         await _collection.Find(doc => doc.Email == userInput.Email && doc.Password == userInput.Password)
-         .FirstOrDefaultAsync(cancellationToken);
+        AppUser? appUser = await _userManager.FindByEmailAsync(userInput.Email);
 
-        if (user is null)
+        if (appUser is null)
+        {
+            return new LoggedInDto
+            {
+                IsWrongCreds = true,
+            };
+        }
+
+        bool isPassCorrect = await _userManager.CheckPasswordAsync(appUser, userInput.Password);
+
+        if (!isPassCorrect)
+        {
+            return new LoggedInDto
+            {
+                IsWrongCreds = true
+            };
+        }
+
+        string? token = await _tokenService.CreateToken(appUser);
+
+        if (string.IsNullOrEmpty(token))
+        {
             return null;
+        }
 
-        string? token = _tokenService.CreateToken(user);
-
-        return Mappers.ConvertAppUserToLoggedInDto(user, token);
+        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(doc
-            => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
+            => doc.Id.ToString() == userId).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
             return null;
 
-        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id == userId, cancellationToken);
+        return await _collection.DeleteOneAsync<AppUser>(doc => doc.Id.ToString() == userId, cancellationToken);
     }
 
     public async Task<LoggedInDto?> ReloadLoggedInUserAsync(string userId, string token, CancellationToken cancellationToken)
     {
-        AppUser? appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
+        AppUser? appUser = await _collection.Find<AppUser>(doc => doc.Id.ToString() == userId).FirstOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
             return null;
@@ -74,6 +107,6 @@ public class AccountRepository : IAccountRepository
         UpdateDefinition<AppUser> updateUserLastActive = Builders<AppUser>.Update
             .Set(appUser => appUser.LastActive, DateTime.UtcNow);
 
-        return await _collection.UpdateOneAsync(doc => doc.Id == userId, updateUserLastActive, null, cancellationToken);
+        return await _collection.UpdateOneAsync(doc => doc.Id.ToString() == userId, updateUserLastActive, null, cancellationToken);
     }
 }
