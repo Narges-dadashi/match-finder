@@ -30,7 +30,21 @@ public class AccountRepository : IAccountRepository
 
             return new LoggedInDto
             {
-                Errors = errors,
+                Errors = errors
+            };
+        }
+
+        var roleResult = await _userManager.AddToRoleAsync(appUser, "member");
+
+        if (!roleResult.Succeeded)
+        {
+            var roleErrors = roleResult.Errors
+                .Select(e => e.Description)
+                .ToList();
+
+            return new LoggedInDto
+            {
+                Errors = roleErrors
             };
         }
 

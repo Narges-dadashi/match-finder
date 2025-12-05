@@ -33,18 +33,17 @@ public class ExceptionMiddleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            ApiException response = new()
+            ApiException response = new ApiException()
             {
                 StatusCode = context.Response.StatusCode,
                 Message = ex.Message,
-                Details = ex.StackTrace?.ToString(),
+                Details = ex.StackTrace,
                 Time = DateTime.Now
             };
 
             await _collection.InsertOneAsync(response);
 
-            if (_env.IsProduction())
-                response.Details = "Internal Server Error.";
+            response.Details = "Internal Server Error.";
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
