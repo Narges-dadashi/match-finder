@@ -1,17 +1,15 @@
 <div class="container">
-    <h1>Find Your Beloved One!</h1>
+    <h2>Find Your Beloved One!</h2>
     <div class="memebrs-container">
         <div class="members">
-            @for (member of members; track $index) {
+            <!-- @for (member of members; track $index) {
             <app-member-card [memberInput]="member" />
-            }
+            } -->
         </div>
         @if (pagination && paginationParams) {
         <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
-            [pageSize]="paginationParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
-            [pageSizeOptions]="true ? pageSizeOptions : []" [hidePageSize]="false"
-            [pageIndex]="paginationParams.pageNumber - 1" aria-label="Select page" class="paginator">
-        </mat-paginator>
+            [pageSize]="paginationParams.pageSize" [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="paginationParams.pageNumber - 1" aria-label="Select page" class="paginator"></mat-paginator>
         }
     </div>
 </div>
