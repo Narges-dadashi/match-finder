@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="../Image_Proccessing_WwwRoot/Image_Proccessing_WwwRoot.csproj" />
+      <ProjectReference Include="../Image_Processing_WwwRoot/Image_Processing_WwwRoot.csproj" />
     </ItemGroup>
-
 </Project>
