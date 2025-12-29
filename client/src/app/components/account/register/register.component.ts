@@ -8,13 +8,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 import { Register } from '../../../models/register.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     FormsModule, ReactiveFormsModule,
-    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
+    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule,
+    MatRadioModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -41,11 +43,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   registerFg = this.fB.group({
-    emailCtrl: ['', [Validators.required, Validators.email]],
-    userNameCtrl: ['', [Validators.required]],
+    emailCtrl: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]], 
+    userNameCtrl: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
     dateOfBirthCtrl: ['', [Validators.required]],
-    passwordCtrl: ['', [Validators.required]],
-    confirmPasswordCtrl: ['', [Validators.required]]
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    genderCtrl: ['female', [Validators.required]]
   });
 
   get EmailCtrl(): FormControl {
@@ -66,6 +69,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   get ConfirmPasswordCtrl(): FormControl {
     return this.registerFg.get('confirmPasswordCtrl') as FormControl;
+  }
+
+  get GenderCtrl(): FormControl {
+    return this.registerFg.get('genderCtrl') as FormControl;
   }
 
   register(): void {
