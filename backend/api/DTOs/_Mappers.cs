@@ -8,7 +8,8 @@ public static class Mappers
         {
             Email = registerDto.Email,
             UserName = registerDto.UserName,
-            DateOfBirth = registerDto.DateOfBirth
+            DateOfBirth = registerDto.DateOfBirth,
+            Gender = registerDto.Gender
         };
 
         return appUser;

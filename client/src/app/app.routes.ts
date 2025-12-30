@@ -4,13 +4,13 @@ import { RegisterComponent } from './components/account/register/register.compon
 import { LoginComponent } from './components/account/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { authGuard } from './guards/auth.guard';
 import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 import { MemberListComponent } from './components/members/member-list/member-list.component';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
+import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -37,5 +37,4 @@ export const routes: Routes = [
     { path: 'footer', component: FooterComponent },
     { path: 'server-error', component: ServerErrorComponent },
     { path: '**', component: NotFoundComponent, pathMatch: 'full' },
-    { path: '**', component: NotFoundComponent }
 ];

@@ -5,14 +5,26 @@
             Match Finder
         </a>
         <div>
-            @if (accountService.loggedInUserSig(); as user) {
-            @if (user.roles.includes('admin')) {
-            <span>user role is admin</span>
+            @if (accountService.loggedInUserSig();) {
+            <nav mat-tab-nav-bar class="main-tab-nav" [tabPanel]="tabPanel">
+                @if (accountService.loggedInUserSig()?.roles?.includes('admin')) {
+                @for (link of linksWithAdmin; track $index) {
+                <a mat-tab-link [routerLink]="['/' + link]" routerLinkActive #rla="routerLinkActive"
+                    [active]="rla.isActive">
+                    {{ link | titlecase }}
+                </a>
+                }
+                } @else {
+                @for (link of links; track $index) {
+                <a mat-tab-link [routerLink]="['/' + link]" routerLinkActive #rla="routerLinkActive"
+                    [active]="rla.isActive">
+                    {{ link | titlecase }}
+                </a>
+                }
+                }
+            </nav>
             }
-            @else {
-            <span>user is not admin</span>
-            }
-            }
+            <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
         </div>
     </section>
     <section class="right">
