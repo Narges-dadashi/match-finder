@@ -84,7 +84,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         userName: this.UserNameCtrl.value,
         dateOfBirth: dob,
         password: this.PasswordCtrl.value,
-        confirmPassword: this.ConfirmPasswordCtrl.value
+        confirmPassword: this.ConfirmPasswordCtrl.value,
+        gender: this.GenderCtrl.value
       }
 
       this.subscribedRegisterUser = this.accountService.register(user).subscribe({
