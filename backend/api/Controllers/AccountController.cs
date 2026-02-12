@@ -8,28 +8,32 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
         if (userInput.Password != userInput.ConfirmPassword)
             return BadRequest("Your passwords do not match!");
 
-        LoggedInDto? loggedInDto = await accountRepository.RegisterAsync(userInput, cancellationToken);
+        OperationResult<LoggedInDto> opResult = await accountRepository.RegisterAsync(userInput, cancellationToken);
 
-        if (loggedInDto?.Errors.Count() > 0)
+        return opResult.IsSuccess
+        ? opResult.Result
+        : opResult.Error?.Code switch
         {
-            foreach (var error in loggedInDto.Errors)
-            {
-                return BadRequest(error);
-            }
-        }
-
-        return Ok(loggedInDto);
+            ErrorCode.NetIdentityFailed => BadRequest(opResult.Error.Message),
+            ErrorCode.NetIdentityRoleFailed => BadRequest(opResult.Error.Message),
+            ErrorCode.TokenGenerationFaild => BadRequest(opResult.Error.Message),
+            _ => BadRequest("Something went wrong try again!")
+        };
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
     {
-        LoggedInDto? loggedInDto = await accountRepository.LoginAsync(userInput, cancellationToken);
+        OperationResult<LoggedInDto> opResult = await accountRepository.LoginAsync(userInput, cancellationToken);
 
-        if (loggedInDto!.IsWrongCreds)
-            return BadRequest("Email or Password is wrong");
-
-        return loggedInDto;
+        return opResult.IsSuccess
+        ? opResult.Result
+        : opResult.Error?.Code switch
+        {
+            ErrorCode.WrongCreds => BadRequest(opResult.Error.Message),
+            ErrorCode.TokenGenerationFaild => BadRequest(opResult.Error.Message),
+            _ => BadRequest("Something went wrong try again later.")
+        };
     }
 
     [Authorize]

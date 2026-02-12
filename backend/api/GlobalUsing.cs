@@ -37,3 +37,5 @@ global using AspNetCore.Identity.MongoDbCore.Extensions;
 global using AspNetCore.Identity.MongoDbCore.Infrastructure;
 global using Microsoft.AspNetCore.Identity;
 global using api.Middleware;
+global using api.DTOs.Helpers;
+global using api.Enums;
