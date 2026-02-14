@@ -11,6 +11,9 @@ import { UserEditComponent } from './components/user/user-edit/user-edit.compone
 import { NoAccessComponent } from './components/errors/no-access/no-access.component';
 import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
+import { FriendsComponent } from './components/friends/friends.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,9 +22,12 @@ export const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [authGuard],
         children: [
-            { path: 'members/member-list', component: MemberListComponent },
+            { path: 'members', component: MemberListComponent },
             { path: 'user/user-edit', component: UserEditComponent },
-            { path: 'no-access', component: NoAccessComponent }
+            { path: 'no-access', component: NoAccessComponent },
+            { path: 'friends', component: FriendsComponent },
+            { path: 'messages', component: MessagesComponent },
+            { path: 'admin', component: AdminPanelComponent }
         ]
     },
     {
